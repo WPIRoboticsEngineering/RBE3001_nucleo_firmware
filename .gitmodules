@@ -1,0 +1,3 @@
+[submodule "lib/AS5050"]
+	path = lib/AS5050
+	url = https://github.com/WPIRoboticsEngineering/AS5050.git
