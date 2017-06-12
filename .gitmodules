@@ -1,3 +1,6 @@
 [submodule "lib/AS5050"]
 	path = lib/AS5050
 	url = https://github.com/WPIRoboticsEngineering/AS5050.git
+[submodule "lib/MbedPwmServo"]
+	path = lib/MbedPwmServo
+	url = https://github.com/WPIRoboticsEngineering/MbedPwmServo.git
