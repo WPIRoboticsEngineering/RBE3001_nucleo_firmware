@@ -5,3 +5,6 @@
 	path = lib/MbedPwmServo
 	url = https://github.com/WPIRoboticsEngineering/MbedPwmServo.git
 
+[submodule "lib/PID_Bowler"]
+	path = lib/PID_Bowler
+	url = git@github.com:madhephaestus/PID_Bowler.git
