@@ -11,6 +11,7 @@ public:
   void MathCalculationPosition( float);
   void MathCalculationVelocity( float);
   PidLimitEvent* checkPIDLimitEvents();
+   float getMs();
 
 };
 #endif

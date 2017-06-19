@@ -16,7 +16,7 @@ void PIDimp::onPidConfigureLocal(){
 }
 
 void PIDimp::MathCalculationPosition( float currentTime){
-   MathCalculationPositionDefault( currentTime);
+   RunAbstractPIDCalc( currentTime);
 }
 void PIDimp::MathCalculationVelocity( float currentTime){
    MathCalculationVelocityDefault( currentTime);
@@ -25,4 +25,7 @@ void PIDimp::MathCalculationVelocity( float currentTime){
 PidLimitEvent* PIDimp::checkPIDLimitEvents(){
 
   return &currentEvent;
+}
+float PIDimp::getMs(){
+
 }
