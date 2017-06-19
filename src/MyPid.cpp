@@ -27,5 +27,5 @@ PidLimitEvent* PIDimp::checkPIDLimitEvents(){
   return &currentEvent;
 }
 float PIDimp::getMs(){
-
+  return 0;
 }
