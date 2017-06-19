@@ -4,3 +4,6 @@
 [submodule "lib/MbedPwmServo"]
 	path = lib/MbedPwmServo
 	url = https://github.com/WPIRoboticsEngineering/MbedPwmServo.git
+[submodule "lib/BowlerCom"]
+	path = lib/BowlerCom
+	url = https://github.com/CommonWealthRobotics/BowlerCom.git
