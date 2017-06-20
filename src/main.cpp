@@ -16,12 +16,17 @@
  #include "Servo.h"
  #include "mbed.h"
  #include "MyPid.h"
- // AS5050 enc1(PB_5, PB_4, PB_3, PA_4); // mosi, miso, sclk, cs
-   Servo myservo(PC_9, 5);
 PIDimp * testPid;
-
+double kp=1;
+double ki=0;
+double kd=0;
  int main() {
-   testPid = new PIDimp();
+   testPid = new PIDimp( new Servo(PC_9, 5),
+                         new AS5050(PB_5, PB_4, PB_3, PA_4));
+   testPid->setPIDConstants(kp,ki,kd);
+   testPid->InitilizePidController();
+
+
   //  int loop = 0;
   //  float angle = 0.0;
   //  while(1){
@@ -36,14 +41,16 @@ PIDimp * testPid;
   //  }
 
     while(1) {
-        for(int i=0; i<100; i++) {
-          myservo.write(i/100.0);
-            wait(0.01);
-        }
-        for(int i=100; i>0; i--) {
-            myservo.write(i/100.0);
-            wait(0.01);
-        }
+      testPid->updatePosition();
+      testPid->updateControl();
+        // for(int i=0; i<100; i++) {
+        //   myservo.write(i/100.0);
+        //     wait(0.01);
+        // }
+        // for(int i=100; i>0; i--) {
+        //     myservo.write(i/100.0);
+        //     wait(0.01);
+        // }
       }
 
  }
