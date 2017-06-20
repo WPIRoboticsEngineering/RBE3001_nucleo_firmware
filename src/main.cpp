@@ -18,12 +18,19 @@
 #include "MyPid.h"
 #include "main.h"
 #define  numberOfPid  3
-
+Ticker pidTimer;
 static PIDimp*  pid[numberOfPid];
 double kp=1;
 double ki=0;
 double kd=0;
-
+void runPid(){
+  // update all positions fast and together
+  for (int i=0;i<numberOfPid;i++)
+     pid[i]->updatePosition();
+ // next update all control outputs
+  for (int i=0;i<numberOfPid;i++)
+      pid[i]->updateControl();
+}
  int main() {
 
    pid[0] = new PIDimp( new Servo(SERVO_1, 5),
@@ -38,6 +45,7 @@ double kd=0;
      pid[i]->setPIDConstants(kp,ki,kd);
      pid[i]->InitilizePidController();
    }
+   pidTimer.attach(&runPid, 0.001);
    /*
    // Run PID controller calibration
    pid[0]->runPidHysterisisCalibration();
@@ -49,23 +57,38 @@ double kd=0;
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
    RunEveryObject printer(0,5000);
+   int iterator=0;
+   bool direction =true;
     while(1) {
-      // update all positions fast and together
       float current = clock_us();
       current = current/1000.0;
       double time = printer.RunEvery(current);
+      if(time>0){
+        if(direction)
+          iterator++;
+        else
+          iterator--;
+        if(iterator>1000){
+          direction=false;
+        }
+        if(iterator<-1000){
+          direction=true;
+        }
+        for (int i=0;i<numberOfPid;i++)
+          pid[i]->SetPIDTimed(iterator, 0);// go to setpoint in 0ms, no interpolation
+      }
       for (int i=0;i<numberOfPid;i++) {
-        pid[i]->updatePosition();
         if(time>0)
           printf("Index %i, Angle =  %f\n",i, pid[i]->state.CurrentState);
       }
-      if(time>0)
-        printf("\nUpdateing control ");
-      // next update all control outputs
+
       for (int i=0;i<numberOfPid;i++){
-        if(time>0)
-          printf("\nWorking Output = %f\n", pid[i]->state.OutputSet);
-        pid[i]->updateControl();
+        if(time>0){
+          printf("\nWorking Output = %f Setpoint = %f\n",
+                pid[i]->state.OutputSet,
+                pid[i]->state.SetPoint);
+
+        }
       }
       wait_ms(1);
     }
