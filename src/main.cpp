@@ -30,6 +30,7 @@ double kd=0;
                          new AS5050(PB_5, PB_4, PB_3, PA_3));
    pid[2] = new PIDimp( new Servo(PC_11, 5),
                          new AS5050(PB_5, PB_4, PB_3, PA_2));
+   pid[0]->stat.config.Polarity
    for (int i=0;i<numberOfPid;i++){
      pid[i]->setPIDConstants(kp,ki,kd);
      pid[i]->InitilizePidController();
