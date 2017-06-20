@@ -46,16 +46,27 @@ double kd=0;
    //pid[0]->startHomingLink( CALIBRARTION_home_up, 123);
    // Run a homing procedure to scale the velocity outputs
    //pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
+   RunEveryObject printer;
+   printer.MsTime = 0;
+   printer.setPoint=1000;
     while(1) {
       // update all positions fast and together
+      float current = clock_us();
+      current = current/1000.0;
+      double time = printer.RunEvery(current);
       for (int i=0;i<numberOfPid;i++) {
         pid[i]->updatePosition();
-        printf("Angle = %f\n", pid[i]->state.CurrentState);
+        if(time>0)
+          printf("Index %i, Angle =  %f\n",i, pid[i]->state.CurrentState);
       }
-
+      if(time>0)
+        printf("\nUpdateing control ");
       // next update all control outputs
-      for (int i=0;i<numberOfPid;i++)
-        pid[i]->updateControl();
+      for (int i=0;i<numberOfPid;i++){
+        if(time>0)
+          printf("Output = %f\n", pid[i]->state.OutputSet);
+        //pid[i]->updateControl();
+      }
       wait_ms(1);
     }
  }
