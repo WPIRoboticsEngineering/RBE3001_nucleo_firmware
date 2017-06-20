@@ -42,6 +42,6 @@ double kd=0;
       // next update all control outputs
       for (int i=0;i<numberOfPid;i++)
         pid[i]->updateControl();
-
+      wait_ms(1);
     }
  }
