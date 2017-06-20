@@ -38,17 +38,17 @@ double kd=0;
      pid[i]->setPIDConstants(kp,ki,kd);
      pid[i]->InitilizePidController();
    }
+   /*
    // Run PID controller calibration
-   //pid[0]->runPidHysterisisCalibration();
+   pid[0]->runPidHysterisisCalibration();
    // Run a homing procedure down
-   //pid[0]->startHomingLink( CALIBRARTION_home_down, 123);
+   pid[0]->startHomingLink( CALIBRARTION_home_down, 123);
    // Run a homing procedure up
-   //pid[0]->startHomingLink( CALIBRARTION_home_up, 123);
+   pid[0]->startHomingLink( CALIBRARTION_home_up, 123);
    // Run a homing procedure to scale the velocity outputs
-   //pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
-   RunEveryObject printer;
-   printer.MsTime = 0;
-   printer.setPoint=1000;
+   pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
+   */
+   RunEveryObject printer(0,5000);
     while(1) {
       // update all positions fast and together
       float current = clock_us();
@@ -64,8 +64,8 @@ double kd=0;
       // next update all control outputs
       for (int i=0;i<numberOfPid;i++){
         if(time>0)
-          printf("Output = %f\n", pid[i]->state.OutputSet);
-        //pid[i]->updateControl();
+          printf("\nWorking Output = %f\n", pid[i]->state.OutputSet);
+        pid[i]->updateControl();
       }
       wait_ms(1);
     }
