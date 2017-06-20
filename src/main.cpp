@@ -27,11 +27,11 @@ double kd=0;
  int main() {
 
    pid[0] = new PIDimp( new Servo(SERVO_1, 5),
-                         new AS5050(MISO, MOSI, CLK, ENC_1));  // mosi, miso, sclk, cs
+                         new AS5050(MOSI, MISO, CLK, ENC_1));  // mosi, miso, sclk, cs
    pid[1] = new PIDimp( new Servo(SERVO_2, 5),
-                         new AS5050(MISO, MOSI, CLK, ENC_2));  // mosi, miso, sclk, cs
+                         new AS5050(MOSI, MISO, CLK, ENC_2));  // mosi, miso, sclk, cs
    pid[2] = new PIDimp( new Servo(SERVO_3, 5),
-                         new AS5050(MISO, MOSI, CLK, ENC_3));  // mosi, miso, sclk, cs
+                         new AS5050(MOSI, MISO, CLK, ENC_3));  // mosi, miso, sclk, cs
    // Invert the direction of the motor vs the input
    //pid[0]->state.config.Polarity = true;
    for (int i=0;i<numberOfPid;i++){
@@ -50,7 +50,7 @@ double kd=0;
       // update all positions fast and together
       for (int i=0;i<numberOfPid;i++) {
         pid[i]->updatePosition();
-        printf("Angle = %X\n", pid[i]->state.CurrentState);
+        printf("Angle = %f\n", pid[i]->state.CurrentState);
       }
 
       // next update all control outputs
