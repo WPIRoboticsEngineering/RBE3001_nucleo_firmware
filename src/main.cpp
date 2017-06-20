@@ -16,6 +16,7 @@
 #include "Servo.h"
 #include "mbed.h"
 #include "MyPid.h"
+#include "main.h"
 #define  numberOfPid  3
 
 static PIDimp*  pid[numberOfPid];
@@ -24,12 +25,12 @@ double ki=0;
 double kd=0;
 
  int main() {
-   pid[0] = new PIDimp( new Servo(PC_9, 5),
-                         new AS5050(PB_5, PB_4, PB_3, PA_4));
-   pid[1] = new PIDimp( new Servo(PC_10, 5),
-                         new AS5050(PB_5, PB_4, PB_3, PA_3));
-   pid[2] = new PIDimp( new Servo(PC_11, 5),
-                         new AS5050(PB_5, PB_4, PB_3, PA_2));
+   pid[0] = new PIDimp( new Servo(SERVO_1, 5),
+                         new AS5050(MISO, MOSI, CLK, ENC_1));  // mosi, miso, sclk, cs
+   pid[1] = new PIDimp( new Servo(SERVO_2, 5),
+                         new AS5050(MISO, MOSI, CLK, ENC_2));  // mosi, miso, sclk, cs
+   pid[2] = new PIDimp( new Servo(SERVO_3, 5),
+                         new AS5050(MISO, MOSI, CLK, ENC_3));  // mosi, miso, sclk, cs
    for (int i=0;i<numberOfPid;i++){
      pid[i]->setPIDConstants(kp,ki,kd);
      pid[i]->InitilizePidController();
@@ -37,8 +38,11 @@ double kd=0;
 
     while(1) {
       // update all positions fast and together
-      for (int i=0;i<numberOfPid;i++)
+      for (int i=0;i<numberOfPid;i++) {
         pid[i]->updatePosition();
+        printf("Angle = %X\n", pid[i]->state.CurrentState);
+      }
+
       // next update all control outputs
       for (int i=0;i<numberOfPid;i++)
         pid[i]->updateControl();
