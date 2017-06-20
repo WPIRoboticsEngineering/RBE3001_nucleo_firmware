@@ -20,7 +20,7 @@
 #define  numberOfPid  3
 Ticker pidTimer;
 static PIDimp*  pid[numberOfPid];
-double kp=1;
+double kp=0.1;
 double ki=0;
 double kd=0;
 void runPid(){
@@ -42,15 +42,17 @@ void runPid(){
    // Invert the direction of the motor vs the input
    //pid[0]->state.config.Polarity = true;
    for (int i=0;i<numberOfPid;i++){
-     pid[i]->setPIDConstants(kp,ki,kd);
-     pid[i]->InitilizePidController();
-     state.config.Enabled=false;// disable PID to start with
+     pid[i]->state.config.Enabled=false;// disable PID to start with
    }
    pidTimer.attach(&runPid, 0.001);
    // capture 100 ms of encoders before starting
    wait_ms(100);
-   for (int i=0;i<numberOfPid;i++)
-    state.config.Enabled=false;// Enable PID to start control
+   for (int i=0;i<numberOfPid;i++){
+     pid[i]->setPIDConstants(kp,ki,kd);
+     //reset after encoders have been updated a few times
+     pid[i]->InitilizePidController();
+     pid[i]->state.config.Enabled=true;// Enable PID to start control
+    }
 
    /*
    // Run PID controller calibration
@@ -62,36 +64,45 @@ void runPid(){
    // Run a homing procedure to scale the velocity outputs
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
-   RunEveryObject printer(0,5000);
+   float timeBetweenPrints = 5000;
+   RunEveryObject printer(0,1000);
+   RunEveryObject setpoint(0,timeBetweenPrints);
    int iterator=0;
    bool direction =true;
     while(1) {
-      float current = clock_us();
-      current = current/1000.0;
-      double time = printer.RunEvery(current);
-      if(time>0){
+      float current = pid[0]->getMs();
+      float time = printer.RunEvery(current);
+      if(setpoint.RunEvery(current)>0){
+
         if(direction)
           iterator++;
         else
           iterator--;
-        if(iterator>1000){
+        if(iterator>10){
           direction=false;
         }
-        if(iterator<-1000){
+        if(iterator<-10){
           direction=true;
         }
+        printf("Updating setpoint %i"+iterator);
         for (int i=0;i<numberOfPid;i++)
-          pid[i]->SetPIDTimed(iterator, 0);// go to setpoint in 0ms, no interpolation
+          pid[i]->SetPIDTimed(iterator, 2000);// go to setpoint in timeBetweenPrints ms, no interpolation
+      }
+      if(time>0){
+        printf("\n\n____________________\n Setpoint %i Time =  %f Seconds\n",
+          iterator,
+          (current/1000.0));
+
       }
       for (int i=0;i<numberOfPid;i++) {
         if(time>0)
-          printf("Index %i, Angle =  %f\n",i, pid[i]->state.CurrentState);
+          printf("Index %i, Angle =  %f\n",i, pid[i]->GetPIDPosition());
       }
 
       for (int i=0;i<numberOfPid;i++){
         if(time>0){
-          printf("\nWorking Output = %f Setpoint = %f\n",
-                pid[i]->state.OutputSet,
+          printf("\nWorking Output = %f Setpoint = %f",
+                pid[i]->state.Output,
                 pid[i]->state.SetPoint);
 
         }

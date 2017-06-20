@@ -5,6 +5,7 @@ PIDimp::PIDimp(Servo * myServo, AS5050 * myEncoder){
   servo = myServo;
   encoder = myEncoder;
 }
+
 float PIDimp::getPosition( ){
   return encoder->angleRad();
 }
@@ -31,6 +32,6 @@ PidLimitEvent* PIDimp::checkPIDLimitEvents(){
   return &currentEvent;
 }
 float PIDimp::getMs(){
-  float current = clock_us();
-  return current/1000.0;
+  return (float)clock_ms();
+
 }
