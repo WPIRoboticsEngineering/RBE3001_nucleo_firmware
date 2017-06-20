@@ -44,8 +44,14 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      pid[i]->setPIDConstants(kp,ki,kd);
      pid[i]->InitilizePidController();
+     state.config.Enabled=false;// disable PID to start with
    }
    pidTimer.attach(&runPid, 0.001);
+   // capture 100 ms of encoders before starting
+   wait_ms(100);
+   for (int i=0;i<numberOfPid;i++)
+    state.config.Enabled=false;// Enable PID to start control
+
    /*
    // Run PID controller calibration
    pid[0]->runPidHysterisisCalibration();
