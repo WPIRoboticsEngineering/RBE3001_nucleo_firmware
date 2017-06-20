@@ -24,9 +24,13 @@ double ki=0;
 double kd=0;
 
  int main() {
+   pid[0] = new PIDimp( new Servo(PC_9, 5),
+                         new AS5050(PB_5, PB_4, PB_3, PA_4));
+   pid[1] = new PIDimp( new Servo(PC_10, 5),
+                         new AS5050(PB_5, PB_4, PB_3, PA_3));
+   pid[2] = new PIDimp( new Servo(PC_11, 5),
+                         new AS5050(PB_5, PB_4, PB_3, PA_2));
    for (int i=0;i<numberOfPid;i++){
-     pid[i] = new PIDimp( new Servo(PC_9, 5),
-                           new AS5050(PB_5, PB_4, PB_3, PA_4));
      pid[i]->setPIDConstants(kp,ki,kd);
      pid[i]->InitilizePidController();
    }
