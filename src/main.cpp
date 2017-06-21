@@ -19,10 +19,12 @@
 #include "main.h"
 #define  numberOfPid  3
 Ticker pidTimer;
+
 static PIDimp*  pid[numberOfPid];
 double kp=0.1;
 double ki=0;
 double kd=0;
+
 void runPid(){
   // update all positions fast and together
   for (int i=0;i<numberOfPid;i++)
@@ -44,7 +46,7 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
-   pidTimer.attach(&runPid, 0.001);
+   pidTimer.attach(&runPid, 0.0005);
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
@@ -85,13 +87,28 @@ void runPid(){
           direction=true;
         }
         printf("Updating setpoint %i"+iterator);
-        for (int i=0;i<numberOfPid;i++)
+        for (int i=0;i<numberOfPid;i++){
+          __disable_irq();    // Disable Interrupts
           pid[i]->SetPIDTimed(iterator, 2000);// go to setpoint in timeBetweenPrints ms, no interpolation
+          __enable_irq();     // Enable Interrupts
+        }
+
       }
       if(time>0){
         printf("\n\n____________________\n Setpoint %i Time =  %f Seconds\n",
           iterator,
           (current/1000.0));
+          for (int i=0;i<numberOfPid;i++){
+            //println_E("Time= ");p_fl_E(  pid[i]->state.interpolate.currentTime);
+            print_W(" Set= ");p_fl_W(pid[i]->state.interpolate.set);
+            print_E(" start= ");p_fl_E(pid[i]->state.interpolate.start);
+            print_W(" setTime= ");p_fl_W(pid[i]->state.interpolate.setTime);
+            print_E(" startTime= ");p_fl_E(pid[i]->state.interpolate.startTime);
+
+            println_W("elapsedTime = ");p_fl_W(pid[i]->state.interpolate.elapsed);
+            print_E(" incremental distance = ");p_fl_E(pid[i]->state.interpolate.currentDistance);
+            print_W(" Target = ");p_fl_W(pid[i]->state.interpolate.currentLocation);
+          }
 
       }
       for (int i=0;i<numberOfPid;i++) {

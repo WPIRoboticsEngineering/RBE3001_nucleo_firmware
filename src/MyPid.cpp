@@ -32,6 +32,6 @@ PidLimitEvent* PIDimp::checkPIDLimitEvents(){
   return &currentEvent;
 }
 float PIDimp::getMs(){
-  return (float)clock_ms();
+  return ((float)clock_us())/1000.0f;
 
 }
