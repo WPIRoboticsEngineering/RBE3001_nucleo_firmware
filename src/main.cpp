@@ -21,7 +21,7 @@
 Ticker pidTimer;
 
 static PIDimp*  pid[numberOfPid];
-double kp=0.1;
+double kp=1.0/250;
 double ki=0;
 double kd=0;
 
@@ -32,6 +32,11 @@ void runPid(){
  // next update all control outputs
   for (int i=0;i<numberOfPid;i++)
       pid[i]->updateControl();
+//Handle any chip errors after the critical timing
+  for (int i=0;i<numberOfPid;i++)
+      if(pid[i]->encoder->error.status)
+        pid[i]->encoder->handleErrors();
+
 }
  int main() {
 
@@ -46,7 +51,7 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
-   pidTimer.attach(&runPid, 0.0005);
+   pidTimer.attach(&runPid, 0.0008);
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
@@ -67,63 +72,71 @@ void runPid(){
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
    float timeBetweenPrints = 5000;
+   float bounds = 1000;
    RunEveryObject printer(0,1000);
    RunEveryObject setpoint(0,timeBetweenPrints);
    int iterator=0;
    bool direction =true;
+
     while(1) {
       float current = pid[0]->getMs();
       float time = printer.RunEvery(current);
       if(setpoint.RunEvery(current)>0){
 
         if(direction)
-          iterator++;
+          iterator+=10;
         else
-          iterator--;
-        if(iterator>10){
+          iterator-=10;
+        if(iterator>bounds){
           direction=false;
         }
-        if(iterator<-10){
+        if(iterator<-bounds){
           direction=true;
         }
         printf("Updating setpoint %i"+iterator);
         for (int i=0;i<numberOfPid;i++){
           __disable_irq();    // Disable Interrupts
-          pid[i]->SetPIDTimed(iterator, 2000);// go to setpoint in timeBetweenPrints ms, no interpolation
+          pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, no interpolation
           __enable_irq();     // Enable Interrupts
         }
 
       }
-      if(time>0){
-        printf("\n\n____________________\n Setpoint %i Time =  %f Seconds\n",
-          iterator,
-          (current/1000.0));
-          for (int i=0;i<numberOfPid;i++){
-            //println_E("Time= ");p_fl_E(  pid[i]->state.interpolate.currentTime);
-            print_W(" Set= ");p_fl_W(pid[i]->state.interpolate.set);
-            print_E(" start= ");p_fl_E(pid[i]->state.interpolate.start);
-            print_W(" setTime= ");p_fl_W(pid[i]->state.interpolate.setTime);
-            print_E(" startTime= ");p_fl_E(pid[i]->state.interpolate.startTime);
-
-            println_W("elapsedTime = ");p_fl_W(pid[i]->state.interpolate.elapsed);
-            print_E(" incremental distance = ");p_fl_E(pid[i]->state.interpolate.currentDistance);
-            print_W(" Target = ");p_fl_W(pid[i]->state.interpolate.currentLocation);
-          }
-
-      }
-      for (int i=0;i<numberOfPid;i++) {
-        if(time>0)
-          printf("Index %i, Angle =  %f\n",i, pid[i]->GetPIDPosition());
-      }
-
-      for (int i=0;i<numberOfPid;i++){
+      // if(time>0){
+      //   printf("\n\n____________________\n Setpoint %i Time =  %f Seconds\n",
+      //     iterator,
+      //     (current/1000.0));
+      //     for (int i=0;i<numberOfPid;i++){
+      //       //println_E("Time= ");p_fl_E(  pid[i]->state.interpolate.currentTime);
+      //       // print_W(" Set= ");p_fl_W(pid[i]->state.interpolate.set);
+      //       // print_E(" start= ");p_fl_E(pid[i]->state.interpolate.start);
+      //       // print_W(" setTime= ");p_fl_W(pid[i]->state.interpolate.setTime);
+      //       // print_E(" startTime= ");p_fl_E(pid[i]->state.interpolate.startTime);
+      //       //
+      //       // println_W("elapsedTime = ");p_fl_W(pid[i]->state.interpolate.elapsed);
+      //       // print_E(" incremental distance = ");p_fl_E(pid[i]->state.interpolate.currentDistance);
+      //       // print_W(" Target = ");p_fl_W(pid[i]->state.interpolate.currentLocation);
+      //     }
+      //
+      // }
+      //for (int i=0;i<numberOfPid;i++) {
         if(time>0){
-          printf("\nWorking Output = %f Setpoint = %f",
-                pid[i]->state.Output,
-                pid[i]->state.SetPoint);
+
+          printf("Angle =  %f Raw Value=  0x%x Errors= 0x%x \n",
+              pid[0]->state.CurrentState,
+              pid[0]->encoder->data,
+              pid[0]->encoder->error.status);
 
         }
-      }
+    //  }
+
+      // for (int i=0;i<numberOfPid;i++){
+      //   if(time>0){
+      //     printf("\nWorking Output = %f Setpoint = %f",
+      //           pid[i]->state.Output,
+      //           pid[i]->state.SetPoint);
+      //
+      //   }
+      // }
       wait_ms(1);
     }
  }

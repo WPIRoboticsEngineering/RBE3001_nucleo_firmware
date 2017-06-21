@@ -7,9 +7,13 @@ PIDimp::PIDimp(Servo * myServo, AS5050 * myEncoder){
 }
 
 float PIDimp::getPosition( ){
-  return encoder->angleRad();
+  return (float)encoder->angle();
 }
 void PIDimp::setOutputLocal( float currentOutputValue){
+   if(currentOutputValue>1)
+    currentOutputValue=1;
+  if(currentOutputValue<-1)
+    currentOutputValue=-1;
    servo->write(currentOutputValue);
 }
 float PIDimp::resetPosition( float newCenter){
@@ -32,6 +36,6 @@ PidLimitEvent* PIDimp::checkPIDLimitEvents(){
   return &currentEvent;
 }
 float PIDimp::getMs(){
-  return ((float)clock_us())/1000.0f;
+  return ((float)clock_us())/1000.0;
 
 }
