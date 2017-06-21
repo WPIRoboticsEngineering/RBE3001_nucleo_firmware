@@ -3,6 +3,7 @@
 #include <PID_Bowler.h>
 #include "AS5050.h"
 #include "Servo.h"
+#include "RunEvery.h"
 class PIDimp : public PIDBowler{
 public:
   PIDimp(Servo * myServo, AS5050 * myEncoder);
@@ -16,6 +17,7 @@ public:
   float getMs();
   AS5050 * encoder;
   Servo * servo;
+  RunEveryObject * printer;
 
 };
 #endif

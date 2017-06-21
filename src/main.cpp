@@ -21,7 +21,7 @@
 Ticker pidTimer;
 
 static PIDimp*  pid[numberOfPid];
-double kp=1.0/250;
+double kp=0.01;
 double ki=0;
 double kd=0;
 
@@ -33,9 +33,9 @@ void runPid(){
   for (int i=0;i<numberOfPid;i++)
       pid[i]->updateControl();
 //Handle any chip errors after the critical timing
-  for (int i=0;i<numberOfPid;i++)
-      if(pid[i]->encoder->error.status)
-        pid[i]->encoder->handleErrors();
+  // for (int i=0;i<numberOfPid;i++)
+  //     if(pid[i]->encoder->error.status)
+  //       pid[i]->encoder->handleErrors();
 
 }
  int main() {
@@ -51,14 +51,16 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
-   pidTimer.attach(&runPid, 0.0008);
+   pidTimer.attach(&runPid, 0.001);
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
      pid[i]->setPIDConstants(kp,ki,kd);
      //reset after encoders have been updated a few times
      pid[i]->InitilizePidController();
-     pid[i]->state.config.Enabled=true;// Enable PID to start control
+     pid[i]->ZeroPID();// set the current encoder value to 0
+                       // this should be replaced by calibration routine
+     pid[i]->SetPIDEnabled( true);// Enable PID to start control
     }
 
    /*
@@ -72,35 +74,16 @@ void runPid(){
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
    float timeBetweenPrints = 5000;
-   float bounds = 1000;
+   float bounds = 200;
    RunEveryObject printer(0,1000);
    RunEveryObject setpoint(0,timeBetweenPrints);
    int iterator=0;
    bool direction =true;
-
+   printf("\n\n Starting Core \n\n");
     while(1) {
       float current = pid[0]->getMs();
       float time = printer.RunEvery(current);
-      if(setpoint.RunEvery(current)>0){
 
-        if(direction)
-          iterator+=10;
-        else
-          iterator-=10;
-        if(iterator>bounds){
-          direction=false;
-        }
-        if(iterator<-bounds){
-          direction=true;
-        }
-        printf("Updating setpoint %i"+iterator);
-        for (int i=0;i<numberOfPid;i++){
-          __disable_irq();    // Disable Interrupts
-          pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, no interpolation
-          __enable_irq();     // Enable Interrupts
-        }
-
-      }
       // if(time>0){
       //   printf("\n\n____________________\n Setpoint %i Time =  %f Seconds\n",
       //     iterator,
@@ -119,23 +102,38 @@ void runPid(){
       //
       // }
       //for (int i=0;i<numberOfPid;i++) {
-        if(time>0){
 
-          printf("Angle =  %f Raw Value=  0x%x Errors= 0x%x \n",
-              pid[0]->state.CurrentState,
-              pid[0]->encoder->data,
-              pid[0]->encoder->error.status);
+        if(setpoint.RunEvery(current)>0){
 
+          if(direction)
+            iterator+=10;
+          else
+            iterator-=10;
+          if(iterator>bounds){
+            direction=false;
+          }
+          if(iterator<-bounds){
+            direction=true;
+          }
+
+          for (int i=0;i<numberOfPid;i++){
+            __disable_irq();    // Disable Interrupts
+            pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, no interpolation
+            __enable_irq();     // Enable Interrupts
+          }
+          //printf("\n\nUpdating setpoint %i\n\n"+iterator);
         }
+
     //  }
 
       // for (int i=0;i<numberOfPid;i++){
-      //   if(time>0){
-      //     printf("\nWorking Output = %f Setpoint = %f",
-      //           pid[i]->state.Output,
-      //           pid[i]->state.SetPoint);
-      //
-      //   }
+        if(time>0){
+          printf("\nOutput = %f Setpoint = %f Angle =  %f ",
+                pid[0]->state.Output,
+                pid[0]->state.SetPoint,
+              pid[0]->state.CurrentState);
+
+        }
       // }
       wait_ms(1);
     }
