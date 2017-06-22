@@ -21,9 +21,9 @@ void PIDimp::onPidConfigureLocal(){
   // this will change the sign of the output signal, and will flip between converging and and diverging
   state.config.Polarity=true;
   state.config.stop=0.5f;// the center value for the servo object
-  // this is hte maximum value that shpould come in through setOutputLocal
+  // this is the maximum value that should come in through setOutputLocal
   state.config.outputMaximum=0.7f;
-  // this is hte minimum value that shpould come in through setOutputLocal
+  // this is the minimum value that should come in through setOutputLocal
   state.config.outputMinimum=0.3f;
   // the smallest increment of change for the output
   state.config.outputIncrement=0.0005f;
