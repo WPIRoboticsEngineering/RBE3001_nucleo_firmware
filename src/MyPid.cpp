@@ -13,20 +13,20 @@ float PIDimp::getPosition( ){
 }
 void PIDimp::setOutputLocal( float currentOutputValue){
 
-  if(printer->RunEvery(getMs())>0){
-    printf("\nSetpoint set to: %f systemLevel %f",currentOutputValue,state.Output);
-  }
-   servo->write(state.Output);
+  // if(printer->RunEvery(getMs())>0){
+  //   printf("\nSetpoint set to: %f systemLevel %f",currentOutputValue,state.Output);
+  // }
+   servo->write(currentOutputValue);
 }
 float PIDimp::resetPosition( float newCenter){
   // optionally reset the encoder object
   return getPosition();
 }
 void PIDimp::onPidConfigureLocal(){
-  //nothing to do in this implementation
+  state.config.Polarity=true;
   state.config.stop=0.5f;// the center value for the servo object
-  state.config.outputMaximum=1.0f;
-  state.config.outputMinimum=0.0f;
+  state.config.outputMaximum=0.7f;
+  state.config.outputMinimum=0.3f;
   state.config.outputIncrement=0.0005f;
   state.config.upperHistoresis = state.config.stop+state.config.outputIncrement;
   state.config.lowerHistoresis = state.config.stop-state.config.outputIncrement;
