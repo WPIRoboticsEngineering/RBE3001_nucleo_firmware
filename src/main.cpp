@@ -73,7 +73,7 @@ void runPid(){
    // Run a homing procedure to scale the velocity outputs
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
-   float timeBetweenPrints = 5000;
+   float timeBetweenPrints = 2000;
    float bounds = 500;
    RunEveryObject printer(0,1000);
    RunEveryObject setpoint(0,timeBetweenPrints);
@@ -118,8 +118,13 @@ void runPid(){
 
           for (int i=0;i<numberOfPid;i++){
             __disable_irq();    // Disable Interrupts
-            pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, no interpolation
+            if(direction)
+              pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, no interpolation
+            else
+              pid[i]->SetPIDTimed(iterator, 0);// go to setpoint in timeBetweenPrints ms, no interpolation
+
             __enable_irq();     // Enable Interrupts
+
           }
           printf("\n\nUpdating setpoint %f\n\n",iterator);
         }
