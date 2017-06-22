@@ -4,18 +4,13 @@
 PIDimp::PIDimp(Servo * myServo, AS5050 * myEncoder){
   servo = myServo;
   encoder = myEncoder;
-  printer= new RunEveryObject(0,1000);
-
 }
-
+// Return the current position of the system
 float PIDimp::getPosition( ){
   return (float)encoder->totalAngle();
 }
+//Send controller signel to the motors, bounded and scaled by the configurations
 void PIDimp::setOutputLocal( float currentOutputValue){
-
-  // if(printer->RunEvery(getMs())>0){
-  //   printf("\nSetpoint set to: %f systemLevel %f",currentOutputValue,state.Output);
-  // }
    servo->write(currentOutputValue);
 }
 float PIDimp::resetPosition( float newCenter){
@@ -23,6 +18,7 @@ float PIDimp::resetPosition( float newCenter){
   return getPosition();
 }
 void PIDimp::onPidConfigureLocal(){
+  // this will change the sign of the output signal, and will flip between converging and and diverging
   state.config.Polarity=true;
   state.config.stop=0.5f;// the center value for the servo object
   // this is hte maximum value that shpould come in through setOutputLocal
@@ -48,13 +44,14 @@ void PIDimp::MathCalculationVelocity( float currentTime){
   //optional run user math functions to compute state.Output as a control signal
    RunPDVel();
 }
-
+// User provided the events tat constitute stall or error conditions.
 PidLimitEvent* PIDimp::checkPIDLimitEvents(){
   currentEvent.type=NO_LIMIT;
   // if limit hardware is used it can be checked here
 
   return &currentEvent;
 }
+// rturn the current time in ms, this is needed by  the PID controller
 float PIDimp::getMs(){
   return ((float)clock_us())/1000.0;
 

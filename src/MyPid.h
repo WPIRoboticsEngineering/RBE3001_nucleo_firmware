@@ -17,7 +17,6 @@ public:
   float getMs();
   AS5050 * encoder;
   Servo * servo;
-  RunEveryObject * printer;
 
 };
 #endif

@@ -82,27 +82,7 @@ void runPid(){
    printf("\n\n Starting Core \n\n");
     while(1) {
       float current = pid[0]->getMs();
-      float time = printer.RunEvery(current);
-
-      // if(time>0){
-      //   printf("\n\n____________________\n Setpoint %i Time =  %f Seconds\n",
-      //     iterator,
-      //     (current/1000.0));
-      //     for (int i=0;i<numberOfPid;i++){
-      //       //println_E("Time= ");p_fl_E(  pid[i]->state.interpolate.currentTime);
-      //       // print_W(" Set= ");p_fl_W(pid[i]->state.interpolate.set);
-      //       // print_E(" start= ");p_fl_E(pid[i]->state.interpolate.start);
-      //       // print_W(" setTime= ");p_fl_W(pid[i]->state.interpolate.setTime);
-      //       // print_E(" startTime= ");p_fl_E(pid[i]->state.interpolate.startTime);
-      //       //
-      //       // println_W("elapsedTime = ");p_fl_W(pid[i]->state.interpolate.elapsed);
-      //       // print_E(" incremental distance = ");p_fl_E(pid[i]->state.interpolate.currentDistance);
-      //       // print_W(" Target = ");p_fl_W(pid[i]->state.interpolate.currentLocation);
-      //     }
-      //
-      // }
-      //for (int i=0;i<numberOfPid;i++) {
-
+      // this is a spaced out timer object used to simplify timed events with a single timer and single thread
         if(setpoint.RunEvery(current)>0){
 
           if(direction)
@@ -122,24 +102,12 @@ void runPid(){
               pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, no interpolation
             else
               pid[i]->SetPIDTimed(iterator, 0);// go to setpoint in timeBetweenPrints ms, no interpolation
-
             __enable_irq();     // Enable Interrupts
 
           }
           printf("\n\nUpdating setpoint %f\n\n",iterator);
         }
 
-    //  }
-
-      // for (int i=0;i<numberOfPid;i++){
-        if(time>0){
-          // printf("\nOutput = %f Setpoint = %f Angle =  %f ",
-          //       pid[0]->state.Output,
-          //       pid[0]->state.SetPoint,
-          //     pid[0]->state.CurrentState);
-
-        }
-      // }
       wait_ms(1);
     }
  }
