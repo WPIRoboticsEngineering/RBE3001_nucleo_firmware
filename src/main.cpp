@@ -15,9 +15,15 @@ void runPid(){
   for (int i=0;i<numberOfPid;i++)
       pid[i]->updateControl();
 //Handle any chip errors after the critical timing
+<<<<<<< HEAD
  //for (int i=0;i<numberOfPid;i++)
       if(pid[0]->encoder->error.status)
         pid[0]->encoder->handleErrors();
+=======
+  // for (int i=0;i<numberOfPid;i++)
+  //     if(pid[i]->encoder->error.status)
+  //       pid[i]->encoder->handleErrors();
+>>>>>>> 1c7e80a67149c5392c883f52c8119d793b79b7e5
 
 }
  int main() {
@@ -33,13 +39,21 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
+<<<<<<< HEAD
    pidTimer.attach(&runPid, 0.004);
+=======
+   pidTimer.attach(&runPid, 0.001);
+>>>>>>> 1c7e80a67149c5392c883f52c8119d793b79b7e5
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
      //reset after encoders have been updated a few times
      pid[i]->InitilizePidController();
+<<<<<<< HEAD
      //pid[i]->ZeroPID();// set the current encoder value to 0
+=======
+     pid[i]->ZeroPID();// set the current encoder value to 0
+>>>>>>> 1c7e80a67149c5392c883f52c8119d793b79b7e5
                        // this should be replaced by calibration routine
      pid[i]->SetPIDEnabled( true);// Enable PID to start control
     }
@@ -57,7 +71,11 @@ void runPid(){
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
    float timeBetweenPrints = 2000;
+<<<<<<< HEAD
    float bounds = 800;
+=======
+   float bounds = 500;
+>>>>>>> 1c7e80a67149c5392c883f52c8119d793b79b7e5
    RunEveryObject printer(0,1000);
    RunEveryObject setpoint(0,timeBetweenPrints);
    float iterator=0;
@@ -69,6 +87,7 @@ void runPid(){
         if(setpoint.RunEvery(current)>0){
           // sweep some setpoints
           if(direction)
+<<<<<<< HEAD
             iterator+=bounds/4;
           else
             iterator-=bounds/4;
@@ -79,6 +98,18 @@ void runPid(){
             pid[0]->state.Output,
             pid[0]->state.OutputSet
           );
+=======
+            iterator+=bounds/3;
+          else
+            iterator-=bounds/3;
+          if(iterator>bounds){
+            direction=false;
+          }
+          if(iterator<-bounds){
+            direction=true;
+          }
+
+>>>>>>> 1c7e80a67149c5392c883f52c8119d793b79b7e5
           for (int i=0;i<numberOfPid;i++){
             //Interrupts need to be disabled to to avoid conflicts with pid objects
             __disable_irq();    // Disable Interrupts
@@ -89,6 +120,7 @@ void runPid(){
             __enable_irq();     // Enable Interrupts
 
           }
+<<<<<<< HEAD
           if(iterator>bounds){
             direction=false;
           }
@@ -96,6 +128,9 @@ void runPid(){
             direction=true;
           }
 
+=======
+          printf("\n\nUpdating setpoint %f\n\n",iterator);
+>>>>>>> 1c7e80a67149c5392c883f52c8119d793b79b7e5
         }
 
       wait_ms(1);
