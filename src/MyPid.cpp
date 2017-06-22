@@ -18,6 +18,7 @@ float PIDimp::resetPosition( float newCenter){
   return getPosition();
 }
 void PIDimp::onPidConfigureLocal(){
+  setPIDConstants(kp,ki,kd);
   // this will change the sign of the output signal, and will flip between converging and and diverging
   state.config.Polarity=true;
   state.config.stop=0.5f;// the center value for the servo object

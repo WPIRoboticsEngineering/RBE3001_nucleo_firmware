@@ -1,17 +1,3 @@
-/*
- * AS5050A Encoder library
- * CONNECTIONS:
- * ---
- * POWER:
- * Orange:  VDD
- * Yellow:  GND
- * ---
- * SPI:
- * Green:   MOSI (SPI bus data input)
- * Blue:    MISO (SPI bus data output)
- * Purple:  SCK  (SPI clock)
- */
-
 #include "AS5050.h"
 #include "Servo.h"
 #include "mbed.h"
@@ -19,11 +5,7 @@
 #include "main.h"
 #define  numberOfPid  3
 Ticker pidTimer;
-
 static PIDimp*  pid[numberOfPid];
-double kp=0.01;
-double ki=0;
-double kd=0;
 
 void runPid(){
   // update all positions fast and together
@@ -55,7 +37,6 @@ void runPid(){
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
-     pid[i]->setPIDConstants(kp,ki,kd);
      //reset after encoders have been updated a few times
      pid[i]->InitilizePidController();
      pid[i]->ZeroPID();// set the current encoder value to 0
@@ -65,12 +46,14 @@ void runPid(){
 
    /*
    // Run PID controller calibration
+   // only one can be run at a time, and the control loop needs to wait
+   // until the calibration is done before advancing to the next
    pid[0]->runPidHysterisisCalibration();
-   // Run a homing procedure down
+   // Run a homing procedure down where 123 is the value of the encoder at home
    pid[0]->startHomingLink( CALIBRARTION_home_down, 123);
-   // Run a homing procedure up
+   // Run a homing procedure up  where 123 is the value of the encoder at home
    pid[0]->startHomingLink( CALIBRARTION_home_up, 123);
-   // Run a homing procedure to scale the velocity outputs
+   // Run a homing procedure to scale the velocity outputs  where 123 is the value of the encoder at home
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
    float timeBetweenPrints = 2000;
@@ -84,7 +67,7 @@ void runPid(){
       float current = pid[0]->getMs();
       // this is a spaced out timer object used to simplify timed events with a single timer and single thread
         if(setpoint.RunEvery(current)>0){
-
+          // sweep some setpoints
           if(direction)
             iterator+=bounds/3;
           else
@@ -97,11 +80,12 @@ void runPid(){
           }
 
           for (int i=0;i<numberOfPid;i++){
+            //Interrupts need to be disabled to to avoid conflicts with pid objects
             __disable_irq();    // Disable Interrupts
             if(direction)
-              pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, no interpolation
+              pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, linear interpolation
             else
-              pid[i]->SetPIDTimed(iterator, 0);// go to setpoint in timeBetweenPrints ms, no interpolation
+              pid[i]->SetPIDTimed(iterator, 0);// go to setpoint in 0 ms, no interpolation
             __enable_irq();     // Enable Interrupts
 
           }
