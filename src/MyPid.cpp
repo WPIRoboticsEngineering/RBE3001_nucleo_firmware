@@ -25,7 +25,7 @@ void PIDimp::onPidConfigureLocal(){
   // this is the maximum value that should come in through setOutputLocal
   state.config.outputMaximum=0.7f;
   // this is the minimum value that should come in through setOutputLocal
-  state.config.outputMinimum=0.3f;
+  state.config.outputMinimum=0.4f;
   // the smallest increment of change for the output
   state.config.outputIncrement=0.0005f;
   // the upper and lower hystersis values for where the motor starts moving

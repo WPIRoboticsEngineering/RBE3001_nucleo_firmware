@@ -15,9 +15,9 @@ void runPid(){
   for (int i=0;i<numberOfPid;i++)
       pid[i]->updateControl();
 //Handle any chip errors after the critical timing
-  // for (int i=0;i<numberOfPid;i++)
-  //     if(pid[i]->encoder->error.status)
-  //       pid[i]->encoder->handleErrors();
+ //for (int i=0;i<numberOfPid;i++)
+      if(pid[0]->encoder->error.status)
+        pid[0]->encoder->handleErrors();
 
 }
  int main() {
@@ -33,13 +33,13 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
-   pidTimer.attach(&runPid, 0.001);
+   pidTimer.attach(&runPid, 0.004);
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
      //reset after encoders have been updated a few times
      pid[i]->InitilizePidController();
-     pid[i]->ZeroPID();// set the current encoder value to 0
+     //pid[i]->ZeroPID();// set the current encoder value to 0
                        // this should be replaced by calibration routine
      pid[i]->SetPIDEnabled( true);// Enable PID to start control
     }
@@ -57,7 +57,7 @@ void runPid(){
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
    float timeBetweenPrints = 2000;
-   float bounds = 500;
+   float bounds = 800;
    RunEveryObject printer(0,1000);
    RunEveryObject setpoint(0,timeBetweenPrints);
    float iterator=0;
@@ -69,16 +69,16 @@ void runPid(){
         if(setpoint.RunEvery(current)>0){
           // sweep some setpoints
           if(direction)
-            iterator+=bounds/3;
+            iterator+=bounds/4;
           else
-            iterator-=bounds/3;
-          if(iterator>bounds){
-            direction=false;
-          }
-          if(iterator<-bounds){
-            direction=true;
-          }
+            iterator-=bounds/4;
 
+          printf("\n\nUpdating setpoint %f Position %f Control output %f Motor Set %f\n\n",
+            iterator,
+            pid[0]->GetPIDPosition(),
+            pid[0]->state.Output,
+            pid[0]->state.OutputSet
+          );
           for (int i=0;i<numberOfPid;i++){
             //Interrupts need to be disabled to to avoid conflicts with pid objects
             __disable_irq();    // Disable Interrupts
@@ -89,7 +89,13 @@ void runPid(){
             __enable_irq();     // Enable Interrupts
 
           }
-          printf("\n\nUpdating setpoint %f\n\n",iterator);
+          if(iterator>bounds){
+            direction=false;
+          }
+          if(iterator<-bounds){
+            direction=true;
+          }
+
         }
 
       wait_ms(1);

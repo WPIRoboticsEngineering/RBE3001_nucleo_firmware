@@ -4,7 +4,7 @@
 #include "AS5050.h"
 #include "Servo.h"
 #include "RunEvery.h"
-#define kp 0.01
+#define kp 0.01f
 #define ki 0
 #define kd 0
 class PIDimp : public PIDBowler{
