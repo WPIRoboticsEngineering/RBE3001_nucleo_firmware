@@ -4,7 +4,6 @@
 #include "AS5050.h"
 #include "mbed.h"
 #include "Clock.h"
-#include "EthernetInterface.h"
 
 #define SERVO_1 PC_6
 #define SERVO_2 PB_15
