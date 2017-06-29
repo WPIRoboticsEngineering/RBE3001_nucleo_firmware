@@ -34,6 +34,9 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      //reset after encoders have been updated a few times
      pid[i]->InitilizePidController();
+     if(pid[i]->GetPIDPosition()>2048){
+       pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
+     }
      //pid[i]->ZeroPID();// set the current encoder value to 0
                        // this should be replaced by calibration routine
      pid[i]->SetPIDEnabled( true);// Enable PID to start control
