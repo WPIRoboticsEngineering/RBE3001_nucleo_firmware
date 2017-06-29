@@ -1,0 +1,25 @@
+{
+  "name": "AS5050",
+  "keywords": "mbed, nucleo, AS5050, encoder",
+  "description": "MBED library for interfacing with the AS5050 magnetic rotary encoder",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/WPIRoboticsEngineering/AS5050.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Kevin Harrington",
+      "email": "harrington@wpi.edu",
+      "maintainer": true
+    },
+    {
+      "name": "Nathan Rosenberg",
+      "email": "narosenberg@wpi.edu"
+    }
+  ],
+  "version": "0.0.1",
+  "frameworks": "mbed",
+  "platforms": "ststm32"
+}
