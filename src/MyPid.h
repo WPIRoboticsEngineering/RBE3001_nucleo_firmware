@@ -4,9 +4,11 @@
 #include "AS5050.h"
 #include "Servo.h"
 #include "RunEvery.h"
-#define kp 0.01
+#define kp 0.005
 #define ki 0
 #define kd 0
+#define vkp 0.005
+#define vkd 0
 class PIDimp : public PIDBowler{
 public:
   // constructor taking in the hardware objects

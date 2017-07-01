@@ -19,12 +19,6 @@
       "email": "narosenberg@wpi.edu"
     }
   ],
-  "dependencies":
-  {
-    "name": "OneWire",
-    "authors": "Paul Stoffregen",
-    "frameworks": "arduino"
-  },
   "version": "0.0.1",
   "frameworks": "mbed",
   "platforms": "ststm32"
