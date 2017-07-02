@@ -31,9 +31,9 @@ void updateHID(){
       //try to read a msg
       if(hid.readNB(&recv_report)) {
           for(int i = 0; i < recv_report.length; i++) {
-              printf("%d ", recv_report.data[i]);
+              //printf("%d ", recv_report.data[i]);
           }
-          printf("\r\n");
+        //  printf("\r\n");
       }
 }
 void runPid(){
@@ -125,6 +125,6 @@ void runPid(){
 
         }
       updateHID();
-      wait_ms(100);
+      //wait_ms(100);
     }
  }
