@@ -57,7 +57,7 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
-   pidTimer.attach(&runPid, 0.004);
+   pidTimer.attach(&runPid, 0.005);
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
