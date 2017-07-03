@@ -1,9 +1,4 @@
-#include "AS5050.h"
-#include "Servo.h"
-#include "mbed.h"
-#include "MyPid.h"
 #include "main.h"
-#include "USBHID.h"
 
 #define  numberOfPid  3
 // reportLength max size is 64 for HID

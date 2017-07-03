@@ -3,7 +3,12 @@
 
 #include "AS5050.h"
 #include "mbed.h"
-#include "Clock.h"
+#include "drivers/Clock.h"
+#include "Servo.h"
+#include "mbed.h"
+#include "drivers/MyPid.h"
+#include "main.h"
+#include "USBHID.h"
 
 #define SERVO_1 PC_6
 #define SERVO_2 PB_15
