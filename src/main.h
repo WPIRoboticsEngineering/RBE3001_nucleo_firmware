@@ -7,8 +7,11 @@
 #include "Servo.h"
 #include "mbed.h"
 #include "drivers/MyPid.h"
+#include "drivers/HIDPacket.h"
 #include "main.h"
 #include "USBHID.h"
+//Coms
+#include "coms/PidServer.h"
 
 #define SERVO_1 PC_6
 #define SERVO_2 PB_15
