@@ -3,10 +3,39 @@
 #include "mbed.h"
 #include "MyPid.h"
 #include "main.h"
+#include "USBHID.h"
+
 #define  numberOfPid  3
+// reportLength max size is 64 for HID
+#define  reportLength 64
 Ticker pidTimer;
 static PIDimp*  pid[numberOfPid];
+USBHID hid(reportLength,//uint8_t output_report_length=
+   reportLength, //uint8_t input_report_length=
+   0x3742, //uint16_t vendor_id=
+   0x0007, // uint16_t product_id=
+   0x0001, //uint16_t product_release=
+   true);//bool connect=
+//This report will contain data to be sent
+HID_REPORT send_report;
+HID_REPORT recv_report;
+void updateHID(){
+  //Fill the report
+      send_report.length = reportLength;
+      for (int i = 0; i < send_report.length; i++)
+          send_report.data[i] = rand() & 0xff;
 
+      //Send the report
+      hid.send(&send_report);
+
+      //try to read a msg
+      if(hid.readNB(&recv_report)) {
+          for(int i = 0; i < recv_report.length; i++) {
+              //printf("%d ", recv_report.data[i]);
+          }
+        //  printf("\r\n");
+      }
+}
 void runPid(){
   // update all positions fast and together
   for (int i=0;i<numberOfPid;i++)
@@ -28,7 +57,7 @@ void runPid(){
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
-   pidTimer.attach(&runPid, 0.004);
+   pidTimer.attach(&runPid, 0.005);
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
@@ -95,7 +124,7 @@ void runPid(){
           }
 
         }
-
-      wait_ms(1);
+      updateHID();
+      //wait_ms(100);
     }
  }
