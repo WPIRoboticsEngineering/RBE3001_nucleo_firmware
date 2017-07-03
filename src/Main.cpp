@@ -27,7 +27,7 @@ int main() {
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
-   pidTimer.attach(&runPid, 0.005);
+   pidTimer.attach(&runPid, 0.0025);
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
@@ -39,6 +39,7 @@ int main() {
      //pid[i]->ZeroPID();// set the current encoder value to 0
                        // this should be replaced by calibration routine
      pid[i]->SetPIDEnabled( true);// Enable PID to start control
+     pid[i]->SetPIDTimed(0, 1000);
    }
 
    /*
@@ -57,6 +58,5 @@ int main() {
    printf("\n\n Starting Core \n\n");
     while(1) {
         coms.server();
-        wait_ms(5);
     }
 }

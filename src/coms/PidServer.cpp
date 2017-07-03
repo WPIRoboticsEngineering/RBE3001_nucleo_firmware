@@ -1,7 +1,7 @@
 #include "PidServer.h"
 
 void PidServer::event(float * buffer){
-  printf("\nPid Server Event");
+  //printf("\nPid Server Event");
   for(int i=0; i<myPumberOfPidChannels;i++){
 
     float position = myPidObjects[i]->GetPIDPosition();
@@ -21,22 +21,30 @@ void PidServer::event(float * buffer){
     if(velocityTarget>0)
      timeOfMotion=(std::abs(setpoint-position)/velocityTarget)*1000;// convert from Tics per second to miliseconds
     bool newUpdate = !myPidObjects[i]->bound(setpoint,
-      myPidObjects[i]->state.interpolate.set,
+      myPidObjects[i]->state.SetPoint,
       0.1,
      0.1);
-    printf("\n  data index %i position = %f setpoint = %f target = %f update = %i time = %f",
-    i,
-    position,
-    setpoint,
-    myPidObjects[i]->state.interpolate.set,
-    newUpdate,
-    timeOfMotion
-    );
+    // printf("\n  data index %i position = %f setpoint = %f target = %f update = %i time = %f",
+    // i,
+    // position,
+    // setpoint,
+    // myPidObjects[i]->state.SetPoint,
+    // newUpdate,
+    // timeOfMotion
+    // );
+
     if(newUpdate){
 
       __disable_irq();    // Disable Interrupts
-      myPidObjects[i]->SetPIDTimed(position, timeOfMotion);// go to setpoint in timeBetweenPrints ms, linear interpolation
+      myPidObjects[i]->SetPIDEnabled( true);
+      myPidObjects[i]->SetPIDTimed(setpoint, 0);// go to setpoint in timeBetweenPrints ms, linear interpolation
       __enable_irq();
+      // printf("\n Interpolation Set = %f ,  Start = %f , setTime = %f , startTime = %f",
+      // myPidObjects[i]->state.interpolate.set,
+      // myPidObjects[i]->state.interpolate.start,
+      // myPidObjects[i]->state.interpolate.setTime,
+      // myPidObjects[i]->state.interpolate.startTime
+      // );
    }
   }
 }
