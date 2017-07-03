@@ -14,7 +14,7 @@ void runPid(){
   for (int i=0;i<numberOfPid;i++)
       pid[i]->updateControl();
 }
- int main() {
+int main() {
 
    pid[0] = new PIDimp( new Servo(SERVO_1, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_1));  // mosi, miso, sclk, cs
@@ -39,7 +39,7 @@ void runPid(){
      //pid[i]->ZeroPID();// set the current encoder value to 0
                        // this should be replaced by calibration routine
      pid[i]->SetPIDEnabled( true);// Enable PID to start control
-    }
+   }
 
    /*
    // Run PID controller calibration
@@ -57,5 +57,6 @@ void runPid(){
    printf("\n\n Starting Core \n\n");
     while(1) {
         coms.server();
+        wait_ms(5);
     }
- }
+}

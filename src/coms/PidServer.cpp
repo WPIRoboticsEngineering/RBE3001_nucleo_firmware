@@ -15,18 +15,28 @@ void PidServer::event(float * buffer){
     buffer[(i*3)+0] = position;
     buffer[(i*3)+1] = velocity;
     buffer[(i*3)+2] = torque;
-    printf("\n data index %i position = %f setpoint = %f",i,position,setpoint);
-    //perform stat update
+
+    //perform state update
     float timeOfMotion=0;
     if(velocityTarget>0)
-     timeOfMotion=std::abs(setpoint-position)/velocityTarget;
+     timeOfMotion=(std::abs(setpoint-position)/velocityTarget)*1000;// convert from Tics per second to miliseconds
+    bool newUpdate = !myPidObjects[i]->bound(setpoint,
+      myPidObjects[i]->state.interpolate.set,
+      0.1,
+     0.1);
+    printf("\n  data index %i position = %f setpoint = %f target = %f update = %i time = %f",
+    i,
+    position,
+    setpoint,
+    myPidObjects[i]->state.interpolate.set,
+    newUpdate,
+    timeOfMotion
+    );
+    if(newUpdate){
 
-    __disable_irq();    // Disable Interrupts
-    if(timeOfMotion>0){
-      myPidObjects[i]->SetPIDTimed(i, timeOfMotion);// go to setpoint in timeBetweenPrints ms, linear interpolation
-    }
-    else
-      myPidObjects[i]->SetPIDTimed(i, 0);// go to setpoint in 0 ms, no interpolation
-     __enable_irq();
+      __disable_irq();    // Disable Interrupts
+      myPidObjects[i]->SetPIDTimed(position, timeOfMotion);// go to setpoint in timeBetweenPrints ms, linear interpolation
+      __enable_irq();
+   }
   }
 }

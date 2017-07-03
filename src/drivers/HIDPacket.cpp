@@ -15,7 +15,12 @@ HIDSimplePacket::HIDSimplePacket(){
 * Non blocking function to check if a packet is availible from the physical layer
 */
  bool HIDSimplePacket::isPacketAvailible(){
-   return hid->readNB(&recv_report);
+   if( hid->readNB(&recv_report)){
+     //printf("\nReceived packet");
+
+     return true;
+   }
+   return false;
  }
 /**
 * User function that fills the buffer from the data in the physical layer
@@ -33,9 +38,11 @@ HIDSimplePacket::HIDSimplePacket(){
 */
  int32_t HIDSimplePacket::sendPacket(uint8_t * buffer,uint32_t numberOfBytes){
    //Fill the report
+   //printf("\nsending packet");
+
    send_report.length = numberOfBytes;
    for (int i = 0; i < send_report.length; i++)
        send_report.data[i] = buffer[i];
    //Send the report
-   hid->sendNB(&send_report);
+   hid->send(&send_report);
  }

@@ -26,9 +26,9 @@ void PIDimp::onPidConfigureLocal(){
   state.config.Polarity=true;
   state.config.stop=0.5f;// the center value for the servo object
   // this is the maximum value that should come in through setOutputLocal
-  state.config.outputMaximum=0.7f;
+  state.config.outputMaximum=0.6f;
   // this is the minimum value that should come in through setOutputLocal
-  state.config.outputMinimum=0.3f;
+  state.config.outputMinimum=0.4f;
   // the smallest increment of change for the output
   state.config.outputIncrement=0.0005f;
   // the upper and lower hystersis values for where the motor starts moving
