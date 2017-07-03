@@ -8,3 +8,6 @@
 [submodule "lib/PID_Bowler"]
 	path = lib/PID_Bowler
 	url = https://github.com/WPIRoboticsEngineering/PID_Bowler.git
+[submodule "lib/SimplePacketComs"]
+	path = lib/SimplePacketComs
+	url = https://github.com/madhephaestus/SimplePacketComs.git
