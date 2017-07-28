@@ -5,7 +5,7 @@
 Ticker pidTimer;
 static PIDimp*  pid[numberOfPid];
 HIDSimplePacket coms;
-
+float  calibrations[3] = {114,0,0};
 void runPid(){
   // update all positions fast and together
   for (int i=0;i<numberOfPid;i++)
@@ -22,6 +22,7 @@ int main() {
                          new AS5050(MOSI, MISO, CLK, ENC_2));  // mosi, miso, sclk, cs
    pid[2] = new PIDimp( new Servo(SERVO_3, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_3));  // mosi, miso, sclk, cs
+
    // Invert the direction of the motor vs the input
    //pid[0]->state.config.Polarity = true;
    for (int i=0;i<numberOfPid;i++){
@@ -36,6 +37,8 @@ int main() {
      if(pid[i]->GetPIDPosition()>2048){
        pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
      }
+     //apply calibrations
+     pid[i]->pidReset(pid[i]->GetPIDPosition()-calibrations[i]);
      //pid[i]->ZeroPID();// set the current encoder value to 0
                        // this should be replaced by calibration routine
      pid[i]->SetPIDEnabled( true);// Enable PID to start control
