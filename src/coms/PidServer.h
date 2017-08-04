@@ -8,11 +8,11 @@
 
 class PidServer: public PacketEventAbstract{
 private:
-  PIDimp* * myPidObjects;
+  PIDBowler* * myPidObjects;
    int myPumberOfPidChannels;
 public:
   // Packet ID needs to be set
-  PidServer (PIDimp* * pidObjects, int numberOfPidChannels )
+  PidServer (PIDBowler* * pidObjects, int numberOfPidChannels )
    : PacketEventAbstract( PidServerID){
     myPidObjects=pidObjects;
     myPumberOfPidChannels=numberOfPidChannels;

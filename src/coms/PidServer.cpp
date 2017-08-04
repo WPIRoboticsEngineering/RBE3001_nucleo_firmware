@@ -33,7 +33,7 @@ void PidServer::event(float * buffer){
     // timeOfMotion
     // );
 
-    if(newUpdate){
+    //if(newUpdate){
 
       __disable_irq();    // Disable Interrupts
       myPidObjects[i]->SetPIDEnabled( true);
@@ -45,6 +45,6 @@ void PidServer::event(float * buffer){
       // myPidObjects[i]->state.interpolate.setTime,
       // myPidObjects[i]->state.interpolate.startTime
       // );
-   }
+   //}
   }
 }

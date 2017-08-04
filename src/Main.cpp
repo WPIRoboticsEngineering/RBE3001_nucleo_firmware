@@ -3,9 +3,9 @@
 #define  numberOfPid  3
 // reportLength max size is 64 for HID
 Ticker pidTimer;
-static PIDimp*  pid[numberOfPid];
+static PIDBowler*  pid[numberOfPid];
 HIDSimplePacket coms;
-float  calibrations[3] = {114,0,0};
+float  calibrations[3] = {114,784,-10};
 void runPid(){
   // update all positions fast and together
   for (int i=0;i<numberOfPid;i++)
@@ -16,13 +16,17 @@ void runPid(){
 }
 int main() {
 
+/*
    pid[0] = new PIDimp( new Servo(SERVO_1, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_1));  // mosi, miso, sclk, cs
    pid[1] = new PIDimp( new Servo(SERVO_2, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_2));  // mosi, miso, sclk, cs
    pid[2] = new PIDimp( new Servo(SERVO_3, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_3));  // mosi, miso, sclk, cs
-
+*/
+   pid[0] =(PIDBowler*) new DummyPID();
+   pid[1] =(PIDBowler*) new DummyPID();
+   pid[2] =(PIDBowler*) new DummyPID();
    // Invert the direction of the motor vs the input
    //pid[0]->state.config.Polarity = true;
    for (int i=0;i<numberOfPid;i++){
@@ -61,5 +65,13 @@ int main() {
    printf("\n\n Starting Core \n\n");
     while(1) {
         coms.server();
+        /*
+        printf("\r\nEncoder Value = %f , %f , %f",
+        pid[0]->GetPIDPosition(),
+        pid[1]->GetPIDPosition(),
+        pid[2]->GetPIDPosition());
+        wait_ms(500);
+        */
+
     }
 }
