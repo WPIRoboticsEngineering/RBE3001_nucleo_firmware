@@ -1,11 +1,13 @@
 #include "main.h"
 
 #define  numberOfPid  3
+#define DUMMYLINKS
 // reportLength max size is 64 for HID
 Ticker pidTimer;
 static PIDBowler*  pid[numberOfPid];
 HIDSimplePacket coms;
 float  calibrations[3] = {114,784,-10};
+
 void runPid(){
   // update all positions fast and together
   for (int i=0;i<numberOfPid;i++)
@@ -15,18 +17,19 @@ void runPid(){
       pid[i]->updateControl();
 }
 int main() {
-
-/*
+#if defined(DUMMYLINKS)
+   pid[0] =(PIDBowler*) new DummyPID();
+   pid[1] =(PIDBowler*) new DummyPID();
+   pid[2] =(PIDBowler*) new DummyPID();
+#else
    pid[0] = new PIDimp( new Servo(SERVO_1, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_1));  // mosi, miso, sclk, cs
    pid[1] = new PIDimp( new Servo(SERVO_2, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_2));  // mosi, miso, sclk, cs
    pid[2] = new PIDimp( new Servo(SERVO_3, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_3));  // mosi, miso, sclk, cs
-*/
-   pid[0] =(PIDBowler*) new DummyPID();
-   pid[1] =(PIDBowler*) new DummyPID();
-   pid[2] =(PIDBowler*) new DummyPID();
+#endif
+
    // Invert the direction of the motor vs the input
    //pid[0]->state.config.Polarity = true;
    for (int i=0;i<numberOfPid;i++){
@@ -38,13 +41,17 @@ int main() {
    for (int i=0;i<numberOfPid;i++){
      //reset after encoders have been updated a few times
      pid[i]->InitilizePidController();
-     if(pid[i]->GetPIDPosition()>2048){
-       pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
-     }
-     //apply calibrations
-     pid[i]->pidReset(pid[i]->GetPIDPosition()-calibrations[i]);
-     //pid[i]->ZeroPID();// set the current encoder value to 0
+     #if defined(DUMMYLINKS)
+        pid[i]->ZeroPID();// set the current encoder value to 0
                        // this should be replaced by calibration routine
+     #else
+       if(pid[i]->GetPIDPosition()>2048){
+         pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
+       }
+       //apply calibrations
+       pid[i]->pidReset(pid[i]->GetPIDPosition()-calibrations[i]);
+     #endif
+
      pid[i]->SetPIDEnabled( true);// Enable PID to start control
      pid[i]->SetPIDTimed(0, 1000);
    }
