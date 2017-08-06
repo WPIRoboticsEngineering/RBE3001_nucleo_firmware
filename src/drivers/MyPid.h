@@ -7,7 +7,7 @@
 #define kp 0.005
 #define ki 0
 #define kd 0
-#define vkp 0.005
+#define vkp 0.01
 #define vkd 0
 class PIDimp : public PIDBowler{
 public:

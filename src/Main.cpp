@@ -1,11 +1,12 @@
-#include "AS5050.h"
-#include "Servo.h"
-#include "mbed.h"
-#include "MyPid.h"
 #include "main.h"
+
 #define  numberOfPid  3
+#define DUMMYLINKS
+// reportLength max size is 64 for HID
 Ticker pidTimer;
-static PIDimp*  pid[numberOfPid];
+static PIDBowler*  pid[numberOfPid];
+HIDSimplePacket coms;
+float  calibrations[3] = {114,784,-10};
 
 void runPid(){
   // update all positions fast and together
@@ -15,32 +16,45 @@ void runPid(){
   for (int i=0;i<numberOfPid;i++)
       pid[i]->updateControl();
 }
- int main() {
-
+int main() {
+#if defined(DUMMYLINKS)
+   pid[0] =(PIDBowler*) new DummyPID();
+   pid[1] =(PIDBowler*) new DummyPID();
+   pid[2] =(PIDBowler*) new DummyPID();
+#else
    pid[0] = new PIDimp( new Servo(SERVO_1, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_1));  // mosi, miso, sclk, cs
    pid[1] = new PIDimp( new Servo(SERVO_2, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_2));  // mosi, miso, sclk, cs
    pid[2] = new PIDimp( new Servo(SERVO_3, 5),
                          new AS5050(MOSI, MISO, CLK, ENC_3));  // mosi, miso, sclk, cs
+#endif
+
    // Invert the direction of the motor vs the input
    //pid[0]->state.config.Polarity = true;
    for (int i=0;i<numberOfPid;i++){
      pid[i]->state.config.Enabled=false;// disable PID to start with
    }
-   pidTimer.attach(&runPid, 0.004);
+   pidTimer.attach(&runPid, 0.0025);
    // capture 100 ms of encoders before starting
    wait_ms(100);
    for (int i=0;i<numberOfPid;i++){
      //reset after encoders have been updated a few times
      pid[i]->InitilizePidController();
-     if(pid[i]->GetPIDPosition()>2048){
-       pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
-     }
-     //pid[i]->ZeroPID();// set the current encoder value to 0
+     #if defined(DUMMYLINKS)
+        pid[i]->ZeroPID();// set the current encoder value to 0
                        // this should be replaced by calibration routine
+     #else
+       if(pid[i]->GetPIDPosition()>2048){
+         pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
+       }
+       //apply calibrations
+       pid[i]->pidReset(pid[i]->GetPIDPosition()-calibrations[i]);
+     #endif
+
      pid[i]->SetPIDEnabled( true);// Enable PID to start control
-    }
+     pid[i]->SetPIDTimed(0, 1000);
+   }
 
    /*
    // Run PID controller calibration
@@ -54,48 +68,17 @@ void runPid(){
    // Run a homing procedure to scale the velocity outputs  where 123 is the value of the encoder at home
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
-   float timeBetweenPrints = 2000;
-   float bounds = 800;
-   RunEveryObject printer(0,1000);
-   RunEveryObject setpoint(0,timeBetweenPrints);
-   float iterator=0;
-   bool direction =true;
+   coms.attach(new PidServer (pid, numberOfPid ));
    printf("\n\n Starting Core \n\n");
     while(1) {
-      float current = pid[0]->getMs();
-      // this is a spaced out timer object used to simplify timed events with a single timer and single thread
-        if(setpoint.RunEvery(current)>0){
-          // sweep some setpoints
-          if(direction)
-            iterator+=bounds/4;
-          else
-            iterator-=bounds/4;
+        coms.server();
+        /*
+        printf("\r\nEncoder Value = %f , %f , %f",
+        pid[0]->GetPIDPosition(),
+        pid[1]->GetPIDPosition(),
+        pid[2]->GetPIDPosition());
+        wait_ms(500);
+        */
 
-          printf("\n\nUpdating setpoint %f Position %f Control output %f Motor Set %f\n\n",
-            iterator,
-            pid[0]->GetPIDPosition(),
-            pid[0]->state.Output,
-            pid[0]->state.OutputSet
-          );
-          for (int i=0;i<numberOfPid;i++){
-            //Interrupts need to be disabled to to avoid conflicts with pid objects
-            __disable_irq();    // Disable Interrupts
-            if(direction)
-              pid[i]->SetPIDTimed(iterator, timeBetweenPrints);// go to setpoint in timeBetweenPrints ms, linear interpolation
-            else
-              pid[i]->SetPIDTimed(iterator, 0);// go to setpoint in 0 ms, no interpolation
-            __enable_irq();     // Enable Interrupts
-
-          }
-          if(iterator>bounds){
-            direction=false;
-          }
-          if(iterator<-bounds){
-            direction=true;
-          }
-
-        }
-
-      wait_ms(1);
     }
- }
+}

@@ -1,23 +1,20 @@
 
-#include "MyPid.h"
+#include "DummyPID.h"
 #include "Clock.h"
-PIDimp::PIDimp(Servo * myServo, AS5050 * myEncoder){
-  servo = myServo;
-  encoder = myEncoder;
+DummyPID::DummyPID(){
+
 }
 // Return the current position of the system
-float PIDimp::getPosition( ){
-  return (float)encoder->totalAngle();
+float DummyPID::getPosition(){
+  return state.interpolate.set;
 }
 //Send controller signel to the motors, bounded and scaled by the configurations
-void PIDimp::setOutputLocal( float currentOutputValue){
-   servo->write(currentOutputValue);
-}
-float PIDimp::resetPosition( float newCenter){
+void DummyPID::setOutputLocal( float currentOutputValue){}
+float DummyPID::resetPosition( float newCenter){
   // optionally reset the encoder object
   return getPosition();
 }
-void PIDimp::onPidConfigureLocal(){
+void DummyPID::onPidConfigureLocal(){
   setPIDConstants(kp,ki,kd);
   // pd velocity constants
   state.config.V.P=vkp;
@@ -32,31 +29,23 @@ void PIDimp::onPidConfigureLocal(){
   // the smallest increment of change for the output
   state.config.outputIncrement=0.0005f;
   // the upper and lower hystersis values for where the motor starts moving
-  state.config.upperHistoresis = state.config.stop+state.config.outputIncrement;
-  state.config.lowerHistoresis = state.config.stop-state.config.outputIncrement;
+  state.config.upperHistoresis = state.config.stop+0.01;
+  state.config.lowerHistoresis = state.config.stop-0.01;
   // a value in encoder units that representst the noise floor of the sensor when detecting stall homing
   state.homing.homingStallBound = 20.0f;
   printf("\nPID initialized");
 }
 
-void PIDimp::MathCalculationPosition( float currentTime){
-  //optional run user math functions to compute state.Output as a control signal
-   RunAbstractPIDCalc( currentTime);
-}
+void DummyPID::MathCalculationPosition( float currentTime){RunAbstractPIDCalc( currentTime);}
 
-void PIDimp::MathCalculationVelocity( float currentTime){
-  //optional run user math functions to compute state.Output as a control signal
-   RunPDVel();
-}
+void DummyPID::MathCalculationVelocity( float currentTime){RunPDVel();}
 // User provided the events tat constitute stall or error conditions.
-PidLimitEvent* PIDimp::checkPIDLimitEvents(){
+PidLimitEvent* DummyPID::checkPIDLimitEvents(){
   currentEvent.type=NO_LIMIT;
-  // if limit hardware is used it can be checked here
-
   return &currentEvent;
 }
 // rturn the current time in ms, this is needed by  the PID controller
-float PIDimp::getMs(){
+float DummyPID::getMs(){
   return ((float)clock_us())/1000.0;
 
 }
