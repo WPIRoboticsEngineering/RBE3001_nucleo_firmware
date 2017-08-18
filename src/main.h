@@ -11,6 +11,7 @@
 #include "drivers/HIDPacket.h"
 #include "main.h"
 #include "USBHID.h"
+#include "RunEvery.h"
 //Coms
 #include "coms/PidServer.h"
 /*

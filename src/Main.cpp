@@ -1,12 +1,12 @@
 #include "main.h"
 
 #define  numberOfPid  3
-#define DUMMYLINKS
+//#define DUMMYLINKS
 // reportLength max size is 64 for HID
 Ticker pidTimer;
 static PIDBowler*  pid[numberOfPid];
 HIDSimplePacket coms;
-float  calibrations[3] = {114,784,-10};
+float  calibrations[3] = {0,0,0};
 
 void runPid(){
   // update all positions fast and together
@@ -70,15 +70,16 @@ int main() {
    */
    coms.attach(new PidServer (pid, numberOfPid ));
    printf("\n\n Starting Core \n\n");
+   RunEveryObject* print = new RunEveryObject(0,500);
     while(1) {
         coms.server();
-        /*
-        printf("\r\nEncoder Value = %f , %f , %f",
-        pid[0]->GetPIDPosition(),
-        pid[1]->GetPIDPosition(),
-        pid[2]->GetPIDPosition());
-        wait_ms(500);
-        */
+        if(print->RunEvery(pid[0]->getMs())>0){
+          printf("\r\nEncoder Value = %f , %f , %f",
+          pid[0]->GetPIDPosition(),
+          pid[1]->GetPIDPosition(),
+          pid[2]->GetPIDPosition());
+        }
+
 
     }
 }
