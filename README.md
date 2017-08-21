@@ -46,3 +46,8 @@ git submodule update
 mbed deploy
 
 mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ 
+
+Set up a new project using "Importing to Eclipse and Building" section from: 
+
+https://developer.mbed.org/users/c1728p9/notebook/debugging-mbed-50-projects-with-eclipse-and-pyocd/
+
