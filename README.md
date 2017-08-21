@@ -5,7 +5,9 @@ This is the firmware for the nucleo-f746zg
 # Toolchains
 
 sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+
 sudo apt-get update
+
 sudo apt install gcc-arm-embedded automake libusb-1.0-0-dev putty libhidapi-dev
 
 pip install mbed-cli
@@ -13,10 +15,15 @@ pip install mbed-cli
 cd ~/git/
 
 git clone http://repo.or.cz/r/openocd.git
+
 cd openocd
+
 ./bootstrap
+
 ./configure --enable-stlink --enable-ftdi --enable-cmsis-dap --prefix=/usr/local
+
 make -j8
+
 sudo make install
 
 
@@ -33,6 +40,7 @@ cd RBE3001_nucleo_firmware
 git checkout eclipse
 
 git submodule init
+
 git submodule update
 
 mbed deploy
