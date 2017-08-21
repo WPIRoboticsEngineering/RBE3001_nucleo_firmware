@@ -4,10 +4,12 @@
 [submodule "lib/MbedPwmServo"]
 	path = lib/MbedPwmServo
 	url = https://github.com/WPIRoboticsEngineering/MbedPwmServo.git
-
 [submodule "lib/PID_Bowler"]
 	path = lib/PID_Bowler
 	url = https://github.com/WPIRoboticsEngineering/PID_Bowler.git
 [submodule "lib/SimplePacketComs"]
 	path = lib/SimplePacketComs
 	url = https://github.com/madhephaestus/SimplePacketComs.git
+[submodule "mbed-os"]
+	path = mbed-os
+	url = https://github.com/ARMmbed/mbed-os.git
