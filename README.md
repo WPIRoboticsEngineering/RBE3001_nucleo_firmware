@@ -51,3 +51,11 @@ Set up a new project using "Importing to Eclipse and Building" section from:
 
 https://developer.mbed.org/users/c1728p9/notebook/debugging-mbed-50-projects-with-eclipse-and-pyocd/
 
+Set the build command to the mbed-compile string above
+
+![](/Screenshot_2017-08-21_12-50-00.png)
+
+Set the build command to push the firmware with '-f'
+
+![](/Screenshot_2017-08-21_12-43-41.png)
+
