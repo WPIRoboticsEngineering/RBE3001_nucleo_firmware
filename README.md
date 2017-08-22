@@ -21,11 +21,7 @@ sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
 
 sudo apt-get update
 
-sudo apt install gcc-arm-embedded automake libusb-1.0-0-dev putty libhidapi-dev
-
-sudo apt-get install python-pip
-
-sudo apt-get install libtool
+sudo apt install gcc-arm-embedded automake libusb-1.0-0-dev putty libhidapi-dev python-pip libtool 
 
 sudo pip install mbed-cli
 
