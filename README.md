@@ -53,15 +53,6 @@ If everything worked your terminal should look like:
 
 ![](/eclipse.png)
 
-
-Add the plugin: `http://gnu-mcu-eclipse.netlify.com/v4-neon-updates`
-
-and
-
-Name: GNU ARM Eclipse Plug-ins
-
-Location: `http://gnuarmeclipse.sourceforge.net/updates`
-
 To launch eclipse go to where you installed eclipse.
 
 if you installed in it in the deault location run:
@@ -75,6 +66,10 @@ cd ~/eclipse/cpp-oxygen/eclipse
 # Eclipse Setup
 
 create a workspace for you RBE3001 devlepmet.
+
+Name: GNU ARM Eclipse Plug-ins
+
+Location: `http://gnu-mcu-eclipse.netlify.com/v4-neon-updates`
 
 ```
 git clone https://github.com/madhephaestus/RBE3001_nucleo_firmware.git
