@@ -101,6 +101,8 @@ Then set the build command by right clicking on RBE3001_Nucleo_firmware
 
 Properties->C/C++ Buld->Builder Settings->Build Command:
 
+`mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ `
+
 ![](/Screenshot_2017-08-21_12-50-00.png)
 
 
