@@ -1,12 +1,14 @@
 #include "main.h"
 
 #define  numberOfPid  3
-//#define DUMMYLINKS
+#define DUMMYLINKS
 // reportLength max size is 64 for HID
 Ticker pidTimer;
 static PIDBowler*  pid[numberOfPid];
 HIDSimplePacket coms;
 float  calibrations[3] = {0,0,0};
+//float  calibrations[3] = {114,784,-10};
+
 
 void runPid(){
   // update all positions fast and together
