@@ -65,7 +65,7 @@ cd ~/eclipse/cpp-oxygen/eclipse
 
 # Eclipse Setup
 
-create a workspace for you RBE3001 devlepmet.
+create a workspace for you RBE3001 devlepmet. First add the GNU ARM toolchain
 
 Name: GNU ARM Eclipse Plug-ins
 
@@ -88,17 +88,36 @@ mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/
 ```
 Set up a new project using "Importing to Eclipse and Building" section from: 
 
-`https://developer.mbed.org/users/c1728p9/notebook/debugging-mbed-50-projects-with-eclipse-and-pyocd/`
+Right click in Project Explorer:
+Import... ->C/C++ -> Existing Code as Makefile Project
 
-then Set up the toolchain path:
+Browse in Existing Code Location for your RBE3001_Nucleo_firmware (THis should set the project name as well
 
-`https://gnu-mcu-eclipse.github.io/toolchain/path/`
+Select ARM Cross GCC
 
-Set the build command to the mbed-compile string above
+Finish
+
+Then set the build command by right clicking on RBE3001_Nucleo_firmware
+
+Properties->C/C++ Buld->Builder Settings->Build Command:
 
 ![](/Screenshot_2017-08-21_12-50-00.png)
 
+
 Set the build command to push the firmware with '-f'
 
+Properties->C/C++ Buld->Behavior Build(Incremental Build)
+
 ![](/Screenshot_2017-08-21_12-43-41.png)
+
+
+right click on RBE3001_Nucleo_firmware
+
+Properties->C/C++ Buld ->Settings->Toolchains->Toolchain path:
+
+`/usr/arm-none-eabi/bin/`
+
+right click on RBE3001_Nucleo_firmware
+
+Index-> Rebuild
 
