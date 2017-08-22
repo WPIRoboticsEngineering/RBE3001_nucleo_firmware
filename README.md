@@ -54,7 +54,13 @@ If everything worked your terminal should look like:
 ![](/eclipse.png)
 
 
-Add the plugin: `https://gnu-mcu-eclipse.github.io/downloads/`
+Add the plugin: `http://gnu-mcu-eclipse.netlify.com/v4-neon-updates`
+
+and
+
+Name: GNU ARM Eclipse Plug-ins
+
+Location: `http://gnuarmeclipse.sourceforge.net/updates`
 
 To launch eclipse go to where you installed eclipse.
 
