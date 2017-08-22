@@ -2,6 +2,19 @@
 
 This is the firmware for the nucleo-f746zg
 
+# Driver and udev rule
+The nucleo needs a udev rule installed in
+
+/etc/udev/rules.d/98-openocd-udev.rules
+
+```
+wget https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/98-openocd-udev.rules
+sudo cp 98-openocd-udev.rules /etc/udev/rules.d/
+sudo  udevadm control --reload-rules
+```
+Udev for nucleo source
+https://github.com/platformio/platformio-core/blob/develop/scripts/98-openocd-udev.rules
+
 # Toolchains
 ```
 sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
