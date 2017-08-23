@@ -52,6 +52,8 @@ cd RBE3001_nucleo_firmware
 #Set your fresh clean Private repo here
 git remote set-url origin git@github.com:MY_3001_PROJECT_GROUP/MY_PRIVATE_REPO.git
 git checkout master
+# Add the example RBE firmware as an upstream pull
+git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 #this pushes the master baranch to your private repo
 git push -u origin master
 ```
@@ -97,8 +99,8 @@ Version=1.0
 Type=Application
 Name=Eclipse Arm Toolchain
 Comment=
-Exec=/home/$USER/eclipse/cpp-oxygen/eclipse/eclipse
-Icon=/home/$USER/eclipse/cpp-oxygen/eclipse/icon.xpm
+Exec=$HOME/eclipse/cpp-oxygen/eclipse/eclipse
+Icon=$HOME/eclipse/cpp-oxygen/eclipse/icon.xpm
 Path=
 Terminal=false
 StartupNotify=false" > ~/bin/EclipseARM.desktop
