@@ -141,3 +141,5 @@ right click on RBE3001_Nucleo_firmware
 
 Index-> Rebuild
 
+Wait for the C/C++ indexer to complete and then you can begin working.
+
