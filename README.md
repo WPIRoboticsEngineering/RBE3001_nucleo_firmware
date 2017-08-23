@@ -46,11 +46,17 @@ First create a new private repository and hold on to that git url.
 ```
 git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 cd RBE3001_nucleo_firmware
+```
+## Set up your private repo
+```
 #Set your fresh clean Private repo here
 git remote set-url origin git@github.com:MY_3001_PROJECT_GROUP/MY_PRIVATE_REPO.git
 git checkout master
 #this pushes the master baranch to your private repo
 git push origin master
+```
+## Initialize and Compile Firmware
+```
 git submodule init
 git submodule update
 mbed deploy
