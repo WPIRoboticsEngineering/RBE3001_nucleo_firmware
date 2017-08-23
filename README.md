@@ -36,19 +36,35 @@ If everything worked your terminal should look like:
 ![](/terminal.png)
 
 # Install Eclipse (CDT)
+[Direct Download Link for Eclipse](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-linux64.tar.gz)
 
-`https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-linux64.tar.gz`
+Extract and run the installer. Select C/C++ version of eclipse and install it in the default location. 
 
 ![](/eclipse.png)
 
-To launch eclipse go to where you installed eclipse.
+To launch eclipse, go to where you installed eclipse
 
 if you installed in it in the deault location run:
 
 ```
 cd ~/eclipse/cpp-oxygen/eclipse
-
 ./eclipse
+```
+Optionally you can make an eclipse launcher
+```
+mkdir -p ~/bin/
+echo "[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Eclipse Arm Toolchain
+Comment=
+Exec=/home/$USER/eclipse/cpp-oxygen/eclipse/eclipse
+Icon=/home/$USER/eclipse/cpp-oxygen/eclipse/icon.xpm
+Path=
+Terminal=false
+StartupNotify=false" > ~/bin/Eclipse.desktop
+chmod +x ~/bin/Eclipse.desktop
+ln -s ~/bin/Eclipse.desktop ~/Desktop/Eclipse.desktop
 ```
 
 # Eclipse Setup
