@@ -38,9 +38,9 @@ Log out and log back in to make the user permissions stick.
 Download and compile the source code with mbed-cli
 
 ```
-git clone https://github.com/madhephaestus/RBE3001_nucleo_firmware.git
+git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 cd RBE3001_nucleo_firmware
-git checkout eclipse
+git checkout master
 git submodule init
 git submodule update
 mbed deploy
