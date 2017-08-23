@@ -25,8 +25,6 @@ sudo apt install gcc-arm-embedded automake libusb-1.0-0-dev putty libhidapi-dev 
 
 sudo pip install mbed-cli
 
-cd mkdir git && cd ~/git/
-
 git clone http://repo.or.cz/r/openocd.git
 
 cd openocd
