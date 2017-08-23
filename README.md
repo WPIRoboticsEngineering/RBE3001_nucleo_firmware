@@ -136,6 +136,13 @@ Properties->C/C++ Buld->Behavior Build(Incremental Build)
 
 ![](/Screenshot_2017-08-21_12-43-41.png)
 
+right click on RBE3001_Nucleo_firmware 
+
+Properties->C/C++ Buld ->Settings->Toolchains->Toolchain path
+
+and make sure it says:
+
+`/usr/arm-none-eabi/bin/`
 
 right click on RBE3001_Nucleo_firmware
 
