@@ -53,7 +53,7 @@ cd RBE3001_nucleo_firmware
 git remote set-url origin git@github.com:MY_3001_PROJECT_GROUP/MY_PRIVATE_REPO.git
 git checkout master
 #this pushes the master baranch to your private repo
-git push origin master
+git push -u origin master
 ```
 ## Initialize and Compile Firmware
 ```
