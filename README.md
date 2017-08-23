@@ -11,6 +11,7 @@ The nucleo needs a udev rule installed in
 wget https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/98-openocd-udev.rules
 sudo cp 98-openocd-udev.rules /etc/udev/rules.d/
 sudo  udevadm control --reload-rules
+sudo adduser $USER dialout 
 ```
 Udev for nucleo source
 https://github.com/platformio/platformio-core/blob/develop/scripts/98-openocd-udev.rules
@@ -28,6 +29,7 @@ cd openocd
 ./configure --enable-stlink --enable-ftdi --enable-cmsis-dap --prefix=/usr/local
 make -j8
 sudo make install
+
 ```
 If everything worked your terminal should look like: 
 
