@@ -44,7 +44,7 @@ git checkout master
 git submodule init
 git submodule update
 mbed deploy
-mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source . -f
+mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ -f
 ```
 If everything worked your terminal should look like: 
 
@@ -125,7 +125,7 @@ Then set the build command by right clicking on RBE3001_Nucleo_firmware
 
 Properties->C/C++ Buld->Builder Settings->Build Command:
 
-`mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source . `
+`mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/`
 
 ![](/Screenshot_2017-08-21_12-50-00.png)
 
