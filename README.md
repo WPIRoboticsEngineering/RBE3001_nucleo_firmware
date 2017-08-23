@@ -18,23 +18,15 @@ https://github.com/platformio/platformio-core/blob/develop/scripts/98-openocd-ud
 # Toolchains
 ```
 sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
-
+sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
-
-sudo apt install gcc-arm-embedded automake libusb-1.0-0-dev putty libhidapi-dev python-pip libtool git
-
+sudo apt install gcc-arm-embedded automake libusb-1.0-0-dev putty libhidapi-dev python-pip libtool git oracle-java8-set-default oracle-java8-installer
 sudo pip install mbed-cli
-
 git clone http://repo.or.cz/r/openocd.git
-
 cd openocd
-
 ./bootstrap
-
 ./configure --enable-stlink --enable-ftdi --enable-cmsis-dap --prefix=/usr/local
-
 make -j8
-
 sudo make install
 ```
 If everything worked your terminal should look like: 
