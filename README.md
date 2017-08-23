@@ -61,25 +61,19 @@ Location: `http://gnu-mcu-eclipse.netlify.com/v4-neon-updates`
 
 ```
 git clone https://github.com/madhephaestus/RBE3001_nucleo_firmware.git
-
 cd RBE3001_nucleo_firmware
-
 git checkout eclipse
-
 git submodule init
-
 git submodule update
-
 mbed deploy
-
-mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ 
+mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source . -f
 ```
 Set up a new project using "Importing to Eclipse and Building" section from: 
 
 Right click in Project Explorer:
 Import... ->C/C++ -> Existing Code as Makefile Project
 
-Browse in Existing Code Location for your RBE3001_Nucleo_firmware (THis should set the project name as well
+Browse in Existing Code Location for your RBE3001_Nucleo_firmware (This should set the project name as well
 
 Select ARM Cross GCC
 
@@ -89,7 +83,7 @@ Then set the build command by right clicking on RBE3001_Nucleo_firmware
 
 Properties->C/C++ Buld->Builder Settings->Build Command:
 
-`mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ `
+`mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source . `
 
 ![](/Screenshot_2017-08-21_12-50-00.png)
 
