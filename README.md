@@ -31,14 +31,37 @@ make -j8
 sudo make install
 
 ```
+Log out and log back in to make the user permissions stick.
+
+# Firmware Source Code
+
+Download and compile the source code with mbed-cli
+
+```
+git clone https://github.com/madhephaestus/RBE3001_nucleo_firmware.git
+cd RBE3001_nucleo_firmware
+git checkout eclipse
+git submodule init
+git submodule update
+mbed deploy
+mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source . -f
+```
 If everything worked your terminal should look like: 
 
 ![](/terminal.png)
+# Print statements
+
+Use Putty to open the serial port
+
+`/dev/ttyACM0 at 9600`
+
 
 # Install Eclipse (CDT)
 [Direct Download Link for Eclipse](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-linux64.tar.gz)
 
 Extract and run the installer. Select C/C++ version of eclipse and install it in the default location. 
+
+`eclipse-inst`
 
 ![](/eclipse.png)
 
@@ -75,15 +98,16 @@ Name: GNU ARM Eclipse Plug-ins
 
 Location: `http://gnu-mcu-eclipse.netlify.com/v4-neon-updates`
 
-```
-git clone https://github.com/madhephaestus/RBE3001_nucleo_firmware.git
-cd RBE3001_nucleo_firmware
-git checkout eclipse
-git submodule init
-git submodule update
-mbed deploy
-mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source . -f
-```
+Install plugins from that site. 
+
+Next Set up the toolchain path for MCU's
+
+Window->Preferences->MCU->Global ARM Toolchain Paths->Toolchain folder:
+
+`/usr/arm-none-eabi/bin/`
+
+Apply and Close
+
 Set up a new project using "Importing to Eclipse and Building" section from: 
 
 Right click in Project Explorer:
@@ -110,12 +134,6 @@ Properties->C/C++ Buld->Behavior Build(Incremental Build)
 
 ![](/Screenshot_2017-08-21_12-43-41.png)
 
-
-right click on RBE3001_Nucleo_firmware
-
-Properties->C/C++ Buld ->Settings->Toolchains->Toolchain path:
-
-`/usr/arm-none-eabi/bin/`
 
 right click on RBE3001_Nucleo_firmware
 
