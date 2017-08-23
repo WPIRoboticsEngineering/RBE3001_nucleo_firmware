@@ -36,11 +36,21 @@ Log out and log back in to make the user permissions stick.
 # Firmware Source Code
 
 Download and compile the source code with mbed-cli
-
+## Configure git
+```
+git config --global user.name "John Doe"
+git config --global user.email johndoe@wpi.edu
+```
+## Clone Firmware
+First create a new private repository and hold on to that git url.
 ```
 git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 cd RBE3001_nucleo_firmware
+#Set your fresh clean Private repo here
+git remote set-url origin git@github.com:MY_3001_PROJECT_GROUP/MY_PRIVATE_REPO.git
 git checkout master
+#this pushes the master baranch to your private repo
+git push origin master
 git submodule init
 git submodule update
 mbed deploy
