@@ -62,9 +62,9 @@ Exec=/home/$USER/eclipse/cpp-oxygen/eclipse/eclipse
 Icon=/home/$USER/eclipse/cpp-oxygen/eclipse/icon.xpm
 Path=
 Terminal=false
-StartupNotify=false" > ~/bin/Eclipse.desktop
-chmod +x ~/bin/Eclipse.desktop
-ln -s ~/bin/Eclipse.desktop ~/Desktop/Eclipse.desktop
+StartupNotify=false" > ~/bin/EclipseARM.desktop
+chmod +x ~/bin/EclipseARM.desktop
+ln -s ~/bin/Eclipse.desktop ~/Desktop/EclipseARM.desktop
 ```
 
 # Eclipse Setup
