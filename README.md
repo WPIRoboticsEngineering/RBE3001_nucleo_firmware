@@ -100,6 +100,8 @@ Location: `http://gnu-mcu-eclipse.netlify.com/v4-neon-updates`
 
 Install plugins from that site. 
 
+Restart Eclipse after installing plugins.
+
 Next Set up the toolchain path for MCU's
 
 Window->Preferences->MCU->Global ARM Toolchain Paths->Toolchain folder:
