@@ -56,6 +56,7 @@ git checkout master
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 #this pushes the master baranch to your private repo
 git push -u origin master
+git remote -v
 ```
 ## Initialize and Compile Firmware
 ```
