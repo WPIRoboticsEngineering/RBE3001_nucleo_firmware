@@ -73,6 +73,13 @@ Use Putty to open the serial port
 
 `/dev/ttyACM0 at 9600`
 
+# Upstream updates
+If the course staff needs to update or repair any system code or the dependant libraries, then you will need to run:
+```
+git pull RBE-UPSTREAM master
+git submodule init
+git submodule update
+```
 
 # Install Eclipse (CDT)
 [Direct Download Link for Eclipse](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-linux64.tar.gz)
