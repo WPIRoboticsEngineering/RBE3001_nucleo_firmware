@@ -32,6 +32,9 @@ sudo make install
 
 ```
 Log out and log back in to make the user permissions stick.
+# SSH Keys
+To use the git@ url and to push without having to enter your username and password all the time, you need to set up an SSH key with github. 
+follow these instructions https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 
 # Firmware Source Code
 
@@ -50,7 +53,7 @@ cd RBE3001_nucleo_firmware
 ## Set up your private repo
 ```
 #Set your fresh clean Private repo here
-git remote set-url origin git@github.com:MY_3001_PROJECT_GROUP/MY_PRIVATE_REPO.git
+git remote set-url origin <MY Private Repo URL here>
 git checkout master
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
@@ -68,6 +71,19 @@ mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/
 If everything worked your terminal should look like: 
 
 ![](/terminal.png)
+
+## Check out after initial setup
+After the first setup you can checkout the project the easy way. Go to your private repo and copy the url. 
+
+```
+git clone <MY Private Repo URL here>
+git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
+git submodule init
+git submodule update
+mbed deploy
+mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ -f
+```
+
 # Print statements
 
 Use Putty to open the serial port
@@ -163,7 +179,7 @@ Set the build command to push the firmware with '-f'
 Properties->C/C++ Buld->Behavior Build(Incremental Build)
 
 ![](/Screenshot_2017-08-21_12-43-41.png)
-
+# Fix the errors for standard types (Red underlines in HIDDevice.h and all others with stdint)
 right click on RBE3001_Nucleo_firmware 
 
 Properties->C/C++ Buld ->Settings->Toolchains->Toolchain path
@@ -171,6 +187,8 @@ Properties->C/C++ Buld ->Settings->Toolchains->Toolchain path
 and make sure it says:
 
 `/usr/arm-none-eabi/bin/`
+
+Click apply and Save from this window. This writes the toolchain into the configuration and causes a re-index. THis step is nessissary. 
 
 right click on RBE3001_Nucleo_firmware
 
