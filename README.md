@@ -53,7 +53,7 @@ cd RBE3001_nucleo_firmware
 ## Set up your private repo
 ```
 #Set your fresh clean Private repo here
-git remote set-url origin <MY Private Repo URL here>
+git remote set-url origin MY_Private_Repo_URL_here
 git checkout master
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
@@ -76,7 +76,8 @@ If everything worked your terminal should look like:
 After the first setup you can checkout the project the easy way. Go to your private repo and copy the url. 
 
 ```
-git clone <MY Private Repo URL here>
+git clone MY_Private_Repo_URL_here
+cd M-Repo_Folder
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 git submodule init
 git submodule update
