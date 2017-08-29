@@ -68,7 +68,7 @@ git remote set-url origin MY_Private_Repo_URL_here
 git checkout master
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
-#this pushes the master baranch to your private repo
+#this pushes the master branch to your private repo
 git push -u origin master
 git remote -v
 ```
@@ -208,3 +208,10 @@ Index-> Rebuild
 
 Wait for the C/C++ indexer to complete and then you can begin working.
 
+# Reporting Issues with the template code
+
+To report an issue with the template code it must consist of these exact elements:
+
+A puplic fork of the template code from the current master with the error demonstrated with a unit test demonstration. Only the nessisary code to demonstrate the bug. 9 times out of 10, when doing this you will find the bug or a faster workaround to unexpected behavior. If the bug can be demonstrated in isolation then move on to the next step. DO Not just copy your whole project over, make a new set of code demonstrationg only the problem and nothing else. Each line must have a comment on the end explaining why it needs to be ther in order to demonstrate the bug. This will be visible in the github diff as each line having a comment after the end of the line. If you demonstration does not meet these criteria, the issue will wait until you commit updates making the repo meet them. 
+
+An Issue posted here: https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware/issues and a link to the repository with the demonstration code. Simply describing a problem without the isolated demonstration code will cause the issue to be closed. The issue will be reviewed and a patch or response with happen as soon as the staff figures out whats wrong. If you would like to suggest a solution, feel free to send a Pull Request with a clean branch of the solution to the siiue. Be sure to include the issue number, such as #1 , in all commits resolving this issue. 
