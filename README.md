@@ -44,7 +44,7 @@ Download and compile the source code with mbed-cli
 git config --global user.name "John Doe"
 git config --global user.email johndoe@wpi.edu
 ```
-##Check Git Configuration
+## Check Git Configuration
 List all configurations:
 ```
  git config --list
