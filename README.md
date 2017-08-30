@@ -36,6 +36,7 @@ Log out and log back in to make the user permissions stick.
 To use the git@ url and to push without having to enter your username and password all the time, you need to set up an SSH key with github. 
 follow these instructions https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 
+then these  https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
 # Firmware Source Code
 
 Download and compile the source code with mbed-cli
