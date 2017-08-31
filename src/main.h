@@ -12,13 +12,13 @@
 #include "main.h"
 #include "USBHID.h"
 #include "RunEvery.h"
-//GROUND     HDMI 19,9,8,7
+//GROUND     HDMI 19,1,2,3
 //3.3 volts  HDMI 18
 //Motor 8.4v HDMI 6,5,4 
 
 //Coms
 #include "coms/PidServer.h"
-// HDMI 1
+// HDMI 9,8,7
 #define SERVO_1 PE_9
 #define SERVO_2 PE_11
 #define SERVO_3 PE_13
