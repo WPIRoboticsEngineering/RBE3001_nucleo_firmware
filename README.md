@@ -82,7 +82,7 @@ mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/
 ```
 If everything worked your terminal should look like: 
 
-![](/terminal.png)
+![](/img/terminal.png)
 
 ## Check out after initial setup
 After the first setup you can checkout the project the easy way. Go to your private repo and copy the url. 
@@ -118,7 +118,7 @@ Extract and run the installer. Select C/C++ version of eclipse and install it in
 
 `eclipse-inst`
 
-![](/eclipse.png)
+![](/img/eclipse.png)
 
 To launch eclipse, go to where you installed eclipse
 
@@ -184,14 +184,14 @@ Builder Settings->Build Command:
 
 `mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/`
 
-![](/Screenshot_2017-08-21_12-50-00.png)
+![](/img/Screenshot_2017-08-21_12-50-00.png)
 
 
 Set the build command to push the firmware with '-f'
 
 Properties->C/C++ Buld->Behavior Build(Incremental Build)
 
-![](/Screenshot_2017-08-21_12-43-41.png)
+![](/img/Screenshot_2017-08-21_12-43-41.png)
 # Fix the errors for standard types (Red underlines in HIDDevice.h and all others with stdint)
 right click on RBE3001_Nucleo_firmware 
 
@@ -213,6 +213,6 @@ Wait for the C/C++ indexer to complete and then you can begin working.
 
 To report an issue with the template code it must consist of these exact elements:
 
-A puplic fork of the template code from the current master with the error demonstrated with a unit test demonstration. Only the nessisary code to demonstrate the bug. 9 times out of 10, when doing this you will find the bug or a faster workaround to unexpected behavior. If the bug can be demonstrated in isolation then move on to the next step. DO Not just copy your whole project over, make a new set of code demonstrationg only the problem and nothing else. Each line must have a comment on the end explaining why it needs to be ther in order to demonstrate the bug. This will be visible in the github diff as each line having a comment after the end of the line. If you demonstration does not meet these criteria, the issue will wait until you commit updates making the repo meet them. 
+A public fork of the template code from the current master with the error demonstrated with a unit test demonstration. Only the necessary code to demonstrate the bug. 9 times out of 10, when doing this you will find the bug or a faster workaround to unexpected behavior. If the bug can be demonstrated in isolation then move on to the next step. DO Not just copy your whole project over, make a new set of code demonstrating only the problem and nothing else. Each line must have a comment on the end explaining why it needs to be ther in order to demonstrate the bug. This will be visible in the github diff as each line having a comment after the end of the line. If you demonstration does not meet these criteria, the issue will wait until you commit updates making the repo meet them. 
 
-An Issue posted here: https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware/issues and a link to the repository with the demonstration code. Simply describing a problem without the isolated demonstration code will cause the issue to be closed. The issue will be reviewed and a patch or response with happen as soon as the staff figures out whats wrong. If you would like to suggest a solution, feel free to send a Pull Request with a clean branch of the solution to the siiue. Be sure to include the issue number, such as #1 , in all commits resolving this issue. 
+An Issue posted here: https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware/issues and a link to the repository with the demonstration code. Simply describing a problem without the isolated demonstration code will cause the issue to be closed. The issue will be reviewed and a patch or response with happen as soon as the staff figures out whats wrong. If you would like to suggest a solution, feel free to send a Pull Request with a clean branch of the solution to the issue. Be sure to include the issue number, such as #1 , in all commits resolving this issue. 
