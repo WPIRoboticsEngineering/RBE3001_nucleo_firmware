@@ -3,6 +3,9 @@
 
 #include "AS5050.h"
 #include "mbed.h"
+#include "../mbed-os/targets/TARGET_STM/TARGET_STM32F7/TARGET_STM32F746xG/TARGET_NUCLEO_F746ZG/PinNames.h"
+#include "../mbed-os/drivers/AnalogIn.h"
+#include "../mbed-os/drivers/AnalogOut.h"
 #include "drivers/Clock.h"
 #include "Servo.h"
 #include "mbed.h"
@@ -12,12 +15,14 @@
 #include "main.h"
 #include "USBHID.h"
 #include "RunEvery.h"
+//Coms
+#include "coms/PidServer.h"
+
+// DEFINES
+
 //GROUND     HDMI 19,1,2,3
 //3.3 volts  HDMI 18
 //Motor 8.4v HDMI 6,5,4 
-
-//Coms
-#include "coms/PidServer.h"
 // HDMI 9
 #define SERVO_1 PE_9
 #define SERVO_2 PE_11
