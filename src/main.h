@@ -8,7 +8,6 @@
 #include "../mbed-os/drivers/AnalogOut.h"
 #include "drivers/Clock.h"
 #include "Servo.h"
-#include "mbed.h"
 #include "drivers/MyPid.h"
 #include "drivers/DummyPID.h"
 #include "drivers/HIDPacket.h"
