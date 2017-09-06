@@ -209,6 +209,10 @@ Index-> Rebuild
 
 Wait for the C/C++ indexer to complete and then you can begin working.
 
+# Logic Tester configuration
+
+![](/img/Screenshot_2017-09-03_18-57-16.png)
+
 # Reporting Issues with the template code
 
 To report an issue with the template code it must consist of these exact elements:
