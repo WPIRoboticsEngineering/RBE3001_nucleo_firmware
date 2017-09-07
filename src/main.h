@@ -6,6 +6,7 @@
 #include "../mbed-os/targets/TARGET_STM/TARGET_STM32F7/TARGET_STM32F746xG/TARGET_NUCLEO_F746ZG/PinNames.h"
 #include "../mbed-os/drivers/AnalogIn.h"
 #include "../mbed-os/drivers/AnalogOut.h"
+#include "../mbed-os/drivers/SPI.h"
 #include "drivers/Clock.h"
 #include "Servo.h"
 #include "drivers/MyPid.h"
