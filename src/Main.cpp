@@ -76,6 +76,7 @@ int main() {
    */
    coms.attach(new PidServer (pid, numberOfPid ));
    coms.attach(new PidConfigServer (pid, numberOfPid ));
+   coms.attach(new PDVelocityConfigServer (pid, numberOfPid ));
 
    printf("\r\n\r\n Starting Core \r\n\r\n");
    RunEveryObject* print = new RunEveryObject(0,500);
