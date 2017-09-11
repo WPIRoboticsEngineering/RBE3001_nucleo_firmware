@@ -9,6 +9,7 @@
 #define kd 0
 #define vkp 0.01
 #define vkd 0
+#define SNESOR_SUM 5.0
 class PIDimp : public PIDBowler{
 public:
   // constructor taking in the hardware objects
@@ -25,6 +26,10 @@ public:
   // These are parts of the concrete class
   AS5050 * encoder;
   Servo * servo;
+private:
+  float runningValues[(int)SNESOR_SUM];
+  float runningTotal;
+  int runningTotalIndex;
 
 };
 #endif

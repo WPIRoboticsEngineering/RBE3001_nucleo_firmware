@@ -4,10 +4,22 @@
 PIDimp::PIDimp(Servo * myServo, AS5050 * myEncoder){
   servo = myServo;
   encoder = myEncoder;
+  runningTotalIndex=0;
+  runningTotal=0;
+  for (int i=0;i<SNESOR_SUM;i++){
+	  runningValues[i]=0;
+  }
 }
 // Return the current position of the system
 float PIDimp::getPosition( ){
-  return (float)encoder->totalAngle();
+  runningTotal -=runningValues[runningTotalIndex];
+  runningValues[runningTotalIndex]=(float)encoder->totalAngle();
+  runningTotal +=runningValues[runningTotalIndex];
+  runningTotalIndex++;
+  if(runningTotalIndex>=SNESOR_SUM){
+	  runningTotalIndex=0;
+  }
+  return runningTotal/SNESOR_SUM;
 }
 //Send controller signel to the motors, bounded and scaled by the configurations
 void PIDimp::setOutputLocal( float currentOutputValue){
@@ -36,7 +48,9 @@ void PIDimp::onPidConfigureLocal(){
   state.config.lowerHistoresis = state.config.stop-0.01;
   // a value in encoder units that representst the noise floor of the sensor when detecting stall homing
   state.homing.homingStallBound = 20.0f;
+
   printf("\nPID initialized");
+
 }
 
 void PIDimp::MathCalculationPosition( float currentTime){

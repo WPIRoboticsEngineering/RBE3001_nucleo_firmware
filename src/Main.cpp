@@ -1,12 +1,12 @@
 #include "main.h"
 
 #define  numberOfPid  3
-#define DUMMYLINKS
+//#define DUMMYLINKS
 // reportLength max size is 64 for HID
 Ticker pidTimer;
 static PIDBowler* pid[numberOfPid];
 HIDSimplePacket coms;
-float calibrations[3] = { 0, 0, 0 };
+float calibrations[3] ={ 1813.000000 , -1909.000000 , 1217.000000};
 //float  calibrations[3] = {114,784,-10};
 
 void runPid() {
@@ -40,7 +40,7 @@ int main() {
 		pid[i]->state.config.Enabled = false;   // disable PID to start with
 	}
 	wait_ms(500);   // Cosines delay
-	pidTimer.attach(&runPid, 0.005);
+	pidTimer.attach(&runPid, 0.0025);
 	// capture 100 ms of encoders before starting
 	wait_ms(100);
 	for (int i = 0; i < numberOfPid; i++) {
