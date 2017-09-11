@@ -17,6 +17,7 @@
 #include "RunEvery.h"
 //Coms
 #include "coms/PidServer.h"
+#include "coms/PidConfigServer.h"
 
 // DEFINES
 

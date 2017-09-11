@@ -75,6 +75,8 @@ int main() {
    pid[0]->startHomingLink( CALIBRARTION_home_velocity, 123);
    */
    coms.attach(new PidServer (pid, numberOfPid ));
+   coms.attach(new PidConfigServer (pid, numberOfPid ));
+
    printf("\r\n\r\n Starting Core \r\n\r\n");
    RunEveryObject* print = new RunEveryObject(0,500);
     while(1) {
