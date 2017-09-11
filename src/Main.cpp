@@ -50,15 +50,14 @@ int main() {
 		pid[i]->ZeroPID();   // set the current encoder value to 0
 							 // this should be replaced by calibration routine
 #else
-		if(pid[i]->GetPIDPosition()>2048) {
-			pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
-		}
 		//apply calibrations
 		pid[i]->pidReset(pid[i]->GetPIDPosition()-calibrations[i]);
 #endif
-
+		if(pid[i]->GetPIDPosition()>3000) {
+			pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
+		}
 		pid[i]->SetPIDEnabled(true);              // Enable PID to start control
-		pid[i]->SetPIDTimed(0, 1000);
+		pid[i]->SetPIDTimed(pid[i]->GetPIDPosition(), 1000);
 	}
 
 	/*
@@ -79,7 +78,7 @@ int main() {
 	coms.attach(new VelocityTarget(pid, numberOfPid));
 
 	printf("\r\n\r\n Starting Core \r\n\r\n");
-	RunEveryObject* print = new RunEveryObject(0, 500);
+	RunEveryObject* print = new RunEveryObject(0, 100);
 	while (1) {
 		coms.server();
 		if (print->RunEvery(pid[0]->getMs()) > 0) {
