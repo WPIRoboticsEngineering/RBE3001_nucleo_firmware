@@ -6,7 +6,7 @@ PIDimp::PIDimp(Servo * myServo, AS5050 * myEncoder){
   encoder = myEncoder;
   runningTotalIndex=0;
   runningTotal=0;
-  for (int i=0;i<SNESOR_SUM;i++){
+  for (int i=0;i<SENSOR_SUM;i++){
 	  runningValues[i]=0;
   }
 }
@@ -16,10 +16,10 @@ float PIDimp::getPosition( ){
   runningValues[runningTotalIndex]=(float)encoder->totalAngle();
   runningTotal +=runningValues[runningTotalIndex];
   runningTotalIndex++;
-  if(runningTotalIndex>=SNESOR_SUM){
+  if(runningTotalIndex>=SENSOR_SUM){
 	  runningTotalIndex=0;
   }
-  return runningTotal/SNESOR_SUM;
+  return runningTotal/SENSOR_SUM;
 }
 //Send controller signel to the motors, bounded and scaled by the configurations
 void PIDimp::setOutputLocal( float currentOutputValue){

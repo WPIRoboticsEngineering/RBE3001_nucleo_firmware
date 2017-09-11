@@ -6,7 +6,7 @@
 Ticker pidTimer;
 static PIDBowler* pid[numberOfPid];
 HIDSimplePacket coms;
-float calibrations[3] ={ 1813.000000 , -1909.000000 , 1217.000000};
+float calibrations[3] ={ 1812.000000 , -1909.000000 , 1220.000000};
 //float  calibrations[3] = {114,784,-10};
 
 void runPid() {
