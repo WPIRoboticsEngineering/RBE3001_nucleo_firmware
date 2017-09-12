@@ -82,19 +82,21 @@ int main() {
 	while (1) {
 		coms.server();
 		if (print->RunEvery(pid[0]->getMs()) > 0) {
-			printf("\r\nEncoder Value = %f , %f , %f", pid[0]->GetPIDPosition(),
-					pid[1]->GetPIDPosition(), pid[2]->GetPIDPosition());
+//			printf("\r\nEncoder Value = %f , %f , %f", pid[0]->GetPIDPosition(),
+//					pid[1]->GetPIDPosition(), pid[2]->GetPIDPosition());
 			if (pid[0]->state.vel.enabled) {
-				printf("\n\r\t Velocity: set=   %f ticks/seCond",
+				printf("\n\r\n\r\t Velocity set=   %f ticks/seCond",
 						pid[0]->state.vel.unitsPerSeCond);
-				printf("\n\r\t current state=   %f ticks",
-						pid[0]->getPosition());
-				printf("\n\r\t last state=      %f ticks",
+				printf("\n\r\t vel.lastPosition=      %f ticks",
 						pid[0]->state.vel.lastPosition);
-				printf("\n\r\t current velocity=         %f ticks/seCond ",
+				printf("\n\r\t current getVelocity()=         %f ticks/seCond ",
 						pid[0]->getVelocity());
-				printf("\n\r\t Velocity set=    %f",
+				printf("\n\r\t Velocity currentOutputVel=    %f",
 						pid[0]->state.vel.currentOutputVel);
+				printf("\n\r\t state.Output=    %f",
+						pid[0]->state.Output);
+				printf("\n\r\t state.OutputSet=    %f",
+						pid[0]->state.OutputSet);
 			}
 		}
 
