@@ -109,6 +109,18 @@ If the course staff needs to update or repair any system code or the dependant l
 git pull RBE-UPSTREAM master
 git submodule init
 git submodule update
+cd lib/AS5050/
+git pull origin master
+cd ..
+cd lib/MbedPwmServo/
+git pull origin master
+cd ..
+cd lib/PID_Bowler/
+git pull origin master
+cd ..
+cd lib/SimplePacketComs/
+git pull origin master
+cd ..
 ```
 
 # Install Eclipse (CDT)
