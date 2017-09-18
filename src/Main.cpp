@@ -44,23 +44,22 @@ int main() {
    pidTimer.attach(&runPid, 0.005);
    // capture 100 ms of encoders before starting
    wait_ms(100);
-   for (int i=0;i<numberOfPid;i++){
-     //reset after encoders have been updated a few times
-     pid[i]->InitilizePidController();
-     #if defined(DUMMYLINKS)
-        pid[i]->ZeroPID();// set the current encoder value to 0
-                       // this should be replaced by calibration routine
-     #else
-       if(pid[i]->GetPIDPosition()>2048){
-         pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
-       }
-       //apply calibrations
-       pid[i]->pidReset(pid[i]->GetPIDPosition()-calibrations[i]);
-     #endif
-
-     pid[i]->SetPIDEnabled( true);// Enable PID to start control
-     pid[i]->SetPIDTimed(0, 1000);
-   }
+	for (int i = 0; i < numberOfPid; i++) {
+		//reset after encoders have been updated a few times
+		pid[i]->InitilizePidController();
+#if defined(DUMMYLINKS)
+		pid[i]->ZeroPID();   // set the current encoder value to 0
+							 // this should be replaced by calibration routine
+#else
+		//apply calibrations
+		pid[i]->pidReset(pid[i]->GetPIDPosition()-calibrations[i]);
+#endif
+		if(pid[i]->GetPIDPosition()>3000) {
+			pid[i]->pidReset(pid[i]->GetPIDPosition()-4095);
+		}
+		pid[i]->SetPIDEnabled(true);              // Enable PID to start control
+		pid[i]->SetPIDTimed(pid[i]->GetPIDPosition(), 1000);
+	}
 
    /*
    // Run PID controller calibration
