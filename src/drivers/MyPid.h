@@ -7,7 +7,7 @@
 #define kp 0.005
 #define ki 0
 #define kd 0
-#define vkp 0.01
+#define vkp 1
 #define vkd 0
 #define SENSOR_SUM 4.0
 class PIDimp : public PIDBowler{

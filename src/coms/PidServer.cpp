@@ -34,6 +34,7 @@ void PidServer::event(float * buffer){
 
       __disable_irq();    // Disable Interrupts
       myPidObjects[i]->SetPIDEnabled( true);
+
       myPidObjects[i]->SetPIDTimed(setpoint, timeOfMotion);// go to setpoint in timeBetweenPrints ms, linear interpolation
       __enable_irq();
       // printf("\n Index %i Interpolation Set = %f ,  Start = %f , setTime = %f , startTime = %f",

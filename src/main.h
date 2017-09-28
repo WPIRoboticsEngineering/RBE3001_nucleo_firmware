@@ -21,8 +21,12 @@
 #include "coms/PDVelocityConfigServer.h"
 #include "coms/VelocityTarget.h"
 
+//#define RELEASE
 // DEFINES
-
+#define MOSI PB_5 // HDMI 16
+#define CLK PB_3 // HDMI 13
+#define MISO PB_4 // HDMI 15
+#if defined(RELEASE)
 //GROUND     HDMI 19,1,2,3
 //3.3 volts  HDMI 18
 //Motor 8.4v HDMI 6,5,4 
@@ -30,10 +34,6 @@
 #define SERVO_1 PE_9
 #define SERVO_2 PE_11
 #define SERVO_3 PE_13
-
-#define MOSI PB_5 // HDMI 16
-#define CLK PB_3 // HDMI 13
-#define MISO PB_4 // HDMI 15
 //Full turn PCB values
 //HDMI 17
 #define ENC_1 PC_8
@@ -43,5 +43,21 @@
 #define LOAD_1 PA_3
 #define LOAD_2 PC_0
 #define LOAD_3 PC_3
+#else
+// Plan C breakout boards
+#define PLAN_C_BOARD
+#define SERVO_1 PC_6
+#define SERVO_2 PB_15
+#define SERVO_3 PB_13
+
+#define ENC_1 PD_14
+#define ENC_2 PD_15
+#define ENC_3 PF_12
+
+//HDMI 12
+#define LOAD_1 PA_3
+#define LOAD_2 PC_0
+#define LOAD_3 PC_3
+#endif
 
 #endif

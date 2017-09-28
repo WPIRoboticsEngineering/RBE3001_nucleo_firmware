@@ -46,10 +46,13 @@ void PIDimp::onPidConfigureLocal(){
   // the upper and lower hystersis values for where the motor starts moving
   state.config.upperHistoresis = state.config.stop+0.01;
   state.config.lowerHistoresis = state.config.stop-0.01;
+  //We have hand set the values, the system is calibrated
+  state.calibration.calibrated = true;
   // a value in encoder units that representst the noise floor of the sensor when detecting stall homing
   state.homing.homingStallBound = 20.0f;
-
-  printf("\nPID initialized");
+  //30 sets to 100ms velocity loop
+  setVelocityControllerDivisor(30);// Sets the number of PID cycles to run before running one velocity controller
+  printf("\r\nPID initialized");
 
 }
 
