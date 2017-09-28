@@ -48,6 +48,7 @@ void PIDimp::onPidConfigureLocal(){
   state.config.lowerHistoresis = state.config.stop-0.01;
   //We have hand set the values, the system is calibrated
   state.calibration.calibrated = true;
+  state.calibration.state = CALIBRARTION_DONE;
   // a value in encoder units that representst the noise floor of the sensor when detecting stall homing
   state.homing.homingStallBound = 20.0f;
   //30 sets to 100ms velocity loop
