@@ -179,7 +179,7 @@ Apply and Close
 
 Set up a new project using "Importing to Eclipse and Building" section from: 
 
-Right click in Project Explorer:
+From the File menu:
 Import... ->C/C++ -> Existing Code as Makefile Project
 
 Browse in Existing Code Location for your RBE3001_Nucleo_firmware (This should set the project name as well
