@@ -4,7 +4,7 @@
 #include "MyPid.h"
 #include "RunEvery.h"
 
-class DummyPID : public PIDBowler{
+class DummyPID : public PIDimp{
 public:
   DummyPID();
 

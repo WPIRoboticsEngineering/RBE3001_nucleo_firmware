@@ -4,7 +4,7 @@
 #include <PacketEvent.h>
 #include "../drivers/MyPid.h"
 #include <cmath>        // std::abs
-#define PidServerID 37
+
 
 class PidServer: public PacketEventAbstract{
 private:
@@ -13,7 +13,7 @@ private:
 public:
   // Packet ID needs to be set
   PidServer (PIDBowler* * pidObjects, int numberOfPidChannels )
-   : PacketEventAbstract( PidServerID){
+   : PacketEventAbstract( 37){
     myPidObjects=pidObjects;
     myPumberOfPidChannels=numberOfPidChannels;
   }
