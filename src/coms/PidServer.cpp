@@ -11,7 +11,7 @@ void PidServer::event(float * buffer){
     // read values from the packet buffer
     float setpoint        = buffer[(i*3)+0];
     float velocityTarget  = buffer[(i*3)+1];
-    float forceTarget     = buffer[(i*3)+2];
+    float forceTarget     = buffer[(i*3)+2];// DO SOMETHING WITH ME!
 
     //perform state update
     float timeOfMotion=0;
@@ -61,8 +61,8 @@ void PidServer::event(float * buffer){
   for(int i=0; i<myPumberOfPidChannels;i++){
 
     float position = myPidObjects[i]->GetPIDPosition();
-    float velocity =0;
-    float torque = 0;
+    float velocity =0;// CHANGE ME!
+    float torque = 0;// CHANGE ME!
     // write upstream packets
     buffer[(i*3)+0] = position;
     buffer[(i*3)+1] = velocity;

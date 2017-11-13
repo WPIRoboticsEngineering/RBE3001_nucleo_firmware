@@ -4,7 +4,7 @@
 #define DUMMYLINKS
 // reportLength max size is 64 for HID
 Ticker pidTimer;
-static PIDBowler*  pid[numberOfPid];
+static PIDimp*  pid[numberOfPid];
 HIDSimplePacket coms;
 float  calibrations[3] = {0,0,0};
 //float  calibrations[3] = {114,784,-10};
@@ -22,9 +22,9 @@ int main() {
 	printf("\r\n\r\n Top of Main \r\n\r\n");
 
 #if defined(DUMMYLINKS)
-   pid[0] =(PIDBowler*) new DummyPID();
-   pid[1] =(PIDBowler*) new DummyPID();
-   pid[2] =(PIDBowler*) new DummyPID();
+   pid[0] =(PIDimp*) new DummyPID();
+   pid[1] =(PIDimp*) new DummyPID();
+   pid[2] =(PIDimp*) new DummyPID();
 #else
    SPI * spiDev = new SPI(MOSI, MISO, CLK);
    pid[0] = new PIDimp( new Servo(SERVO_1, 5),
