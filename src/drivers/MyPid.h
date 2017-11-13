@@ -11,6 +11,8 @@
 #define vkd 0
 class PIDimp : public PIDBowler{
 public:
+  PIDimp(){}
+
   // constructor taking in the hardware objects
   PIDimp(Servo * myServo, AS5050 * myEncoder);
   // these are implementations of the abstract functions

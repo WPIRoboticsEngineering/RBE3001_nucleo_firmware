@@ -1,21 +1,17 @@
-#ifndef  Pid_server
-#define Pid_server
+#ifndef  DummyServer_H
+#define DummyServer_H
 #include <PID_Bowler.h>
 #include <PacketEvent.h>
 #include "../drivers/MyPid.h"
 #include <cmath>        // std::abs
 
 
-class PidServer: public PacketEventAbstract{
-private:
-  PIDimp* * myPidObjects;
-   int myPumberOfPidChannels;
+class DummyServer: public PacketEventAbstract{
+
 public:
   // Packet ID needs to be set
-  PidServer (PIDimp* * pidObjects, int numberOfPidChannels )
-   : PacketEventAbstract( 37){
-    myPidObjects=pidObjects;
-    myPumberOfPidChannels=numberOfPidChannels;
+   DummyServer ()
+   : PacketEventAbstract( 42){
   }
   //User function to be called when a packet comes in
   // Buffer contains data from the packet coming in at the start of the function
