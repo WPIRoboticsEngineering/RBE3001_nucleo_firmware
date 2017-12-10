@@ -1,6 +1,7 @@
 # RBE3001_nucleo_firmware
 
-This is the firmware for the nucleo-f746zg
+Welcome to the first RBE3001 lab session! This is going to be great!
+Below you will find instructions to install and set up the firmware for the nucleo-f746zg board.
 
 # Driver and udev rule
 The nucleo needs a udev rule installed in
@@ -57,7 +58,8 @@ Check just for the user tags:
  
  ```
 ## Clone Firmware
-First create a new private repository and hold on to that git url.
+First create a new private repository - make sure to deselect the **Initialize this repository with a README** option.
+Copy the git url of your new repository to the clipboard, you are going to need it the next step.
 ```
 git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 cd RBE3001_nucleo_firmware
@@ -65,7 +67,7 @@ cd RBE3001_nucleo_firmware
 ## Set up your private repo
 ```
 #Set your fresh clean Private repo here
-git remote set-url origin MY_Private_Repo_URL_here
+git remote set-url origin `MY_Private_Repo_URL_here'
 git checkout master
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
@@ -73,7 +75,7 @@ git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nu
 git push -u origin master
 git remote -v
 ```
-## Initialize and Compile Firmware
+## Initialize, Compile and Deploy the Firmware
 ```
 git submodule init
 git submodule update
@@ -84,7 +86,9 @@ If everything worked your terminal should look like:
 
 ![](/img/terminal.png)
 
-## Check out after initial setup
+If an error message shows up at the end of the build process, check that the board is connected to the computer and try again.
+
+## Check out after initial build
 After the first setup you can checkout the project the easy way. Go to your private repo and copy the url. 
 
 ```
@@ -99,29 +103,14 @@ mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/
 
 # Print statements
 
-Use Putty to open the serial port
-
-`/dev/ttyACM0 at 9600`
-
-# Upstream updates
-If the course staff needs to update or repair any system code or the dependant libraries, then you will need to run:
+Now we are going to verify the communication between the computer and the NUCLEO firmware. To do so, we will use putty to listen on the serial port ttyACM0:
 ```
-git pull RBE-UPSTREAM master
-git submodule init
-git submodule update
-cd lib/AS5050/
-git pull origin master
-cd ..
-cd lib/MbedPwmServo/
-git pull origin master
-cd ..
-cd lib/PID_Bowler/
-git pull origin master
-cd ..
-cd lib/SimplePacketComs/
-git pull origin master
-cd ..
+putty -serial /dev/ttyACM0
 ```
+If successful, you should now see the following:
+
+![](/img/serial.png)
+
 
 # Install Eclipse (CDT)
 [Direct Download Link for Eclipse](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-linux64.tar.gz)
@@ -190,7 +179,7 @@ Finish
 
 Then set the build command by right clicking on RBE3001_Nucleo_firmware
 
-Select Properties->C/C++ Buld
+Select Properties->C/C++ Build
 
 Builder Settings->Build Command:
 
@@ -201,13 +190,13 @@ Builder Settings->Build Command:
 
 Set the build command to push the firmware with '-f'
 
-Properties->C/C++ Buld->Behavior Build(Incremental Build)
+Properties->C/C++ Build->Behavior Build(Incremental Build)
 
 ![](/img/Screenshot_2017-08-21_12-43-41.png)
 # Fix the errors for standard types (Red underlines in HIDDevice.h and all others with stdint)
 right click on RBE3001_Nucleo_firmware 
 
-Properties->C/C++ Buld ->Settings->Toolchains->Toolchain path
+Properties->C/C++ Build ->Settings->Toolchains->Toolchain path
 
 and make sure it says:
 
@@ -221,11 +210,31 @@ Index-> Rebuild
 
 Wait for the C/C++ indexer to complete and then you can begin working.
 
-# Logic Tester configuration
+**Congratulations! You have completed the setup of the NUCLEO firmware!**
 
-![](/img/Screenshot_2017-09-03_18-57-16.png)
 
-# Reporting Issues with the template code
+# Core firmware maintainance and bug reporting
+## Upstream updates
+If the course staff needs to update or repair any system code or the dependant libraries, then you will need to run:
+```
+git pull RBE-UPSTREAM master
+git submodule init
+git submodule update
+cd lib/AS5050/
+git pull origin master
+cd ..
+cd lib/MbedPwmServo/
+git pull origin master
+cd ..
+cd lib/PID_Bowler/
+git pull origin master
+cd ..
+cd lib/SimplePacketComs/
+git pull origin master
+cd ..
+```
+
+## Reporting Issues with the template code
 
 To report an issue with the template code it must consist of these exact elements:
 
