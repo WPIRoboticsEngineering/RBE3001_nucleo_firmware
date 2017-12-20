@@ -1,14 +1,14 @@
 #include "main.h"
 
 #define  numberOfPid  3
-#define DUMMYLINKS
+//#define DUMMYLINKS
 // reportLength max size is 64 for HID
 Ticker pidTimer;
 static PIDimp*  pid[numberOfPid];
 HIDSimplePacket coms;
 float  calibrations[3] = {0,0,0};
 //float  calibrations[3] = {114,784,-10};
-
+Servo * gripper;
 
 void runPid(){
   // update all positions fast and together
@@ -26,15 +26,24 @@ int main() {
    pid[1] =(PIDimp*) new DummyPID();
    pid[2] =(PIDimp*) new DummyPID();
 #else
+#if defined( REV1)
    SPI * spiDev = new SPI(MOSI, MISO, CLK);
-   pid[0] = new PIDimp( new Servo(SERVO_1, 5),
-                         new AS5050(spiDev, ENC_1));  // mosi, miso, sclk, cs
-   pid[1] = new PIDimp( new Servo(SERVO_2, 5),
-                         new AS5050(spiDev, ENC_2));  // mosi, miso, sclk, cs
-   pid[2] = new PIDimp( new Servo(SERVO_3, 5),
-                         new AS5050(spiDev, ENC_3));  // mosi, miso, sclk, cs
+   SPI * spi3 = spiDev;
+   SPI * spi4 = spiDev;
+   SPI * spi5 = spiDev;
+#else if defined(REV2)
+   SPI * spi3 = new SPI(PC_12, PC_11, PC_10); // spi(mosi, miso, clk)
+   SPI * spi4 = new SPI(PE_6, PE_5, PE_2); // spi(mosi, miso, clk)
+   SPI * spi5 = new SPI(PF_9, PF_8, PF_7); // spi(mosi, miso, clk)
 #endif
-
+   pid[0] = new PIDimp( new Servo(SERVO_1, 5),
+                         new AS5050(spi3, ENC_1));  // mosi, miso, sclk, cs
+   pid[1] = new PIDimp( new Servo(SERVO_2, 5),
+                         new AS5050(spi4, ENC_2));  // mosi, miso, sclk, cs
+   pid[2] = new PIDimp( new Servo(SERVO_3, 5),
+                         new AS5050(spi5, ENC_3));  // mosi, miso, sclk, cs
+#endif
+   gripper=new Servo(GRIPPER_SERVO, 5);
    // Invert the direction of the motor vs the input
    //pid[0]->state.config.Polarity = true;
    for (int i=0;i<numberOfPid;i++){
