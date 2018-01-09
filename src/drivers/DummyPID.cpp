@@ -1,9 +1,6 @@
-
 #include "DummyPID.h"
 #include "Clock.h"
-DummyPID::DummyPID(){
 
-}
 // Return the current position of the system
 float DummyPID::getPosition(){
   return state.interpolate.set;
