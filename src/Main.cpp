@@ -18,9 +18,9 @@
  */
 #include "main.h"
 #define  DOFs  3     // this macro defines the number of joints of the robotic arm
-//#define  DUMMYMODE   // this macro selects the running mode - see instructions above
+#define  DUMMYMODE   // this macro selects the running mode - see instructions above
 
-//#define  DEBUG_      // if defined, this macro enables the printing of debug
+#define  DEBUG_      // if defined, this macro enables the printing of debug
                      // statements to the serial port - which can be read with PUTTY
 
 /*
@@ -32,7 +32,7 @@ HIDSimplePacket coms;      // HID packet handlers
 
 // The following array contains the "home" positions (in encoder ticks) for each
 // of the robot's joints 
-float homePosition[3] = {385,96,2691};
+float homePosition[3] = {0,0,0};
 
 void runPid() {
 	// update all positions fast and together
