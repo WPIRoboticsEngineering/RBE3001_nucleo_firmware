@@ -27,7 +27,7 @@ void PidServer::event(float * packet){
       float setpoint = packet[(i*3)+0];
       float velocityTarget = 0; // this is currently unused
       float forceTarget = 0;    // this is currently unused
-
+      //printf("\r\n %i : %f", i,setpoint);
       // get current position from arm 
       float position = myPidObjects[i]->GetPIDPosition();
       
