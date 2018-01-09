@@ -175,11 +175,11 @@ int main() {
 	       pid[1]->GetPIDPosition(),
 	       pid[2]->GetPIDPosition());
 
-//	// print load cell readings
-//	printf("\r\nLoad Value = %f , %f , %f",
-//	       pid[0]->loadCell->read(),
-//	       pid[1]->loadCell->read(),
-//	       pid[2]->loadCell->read());
+	// print load cell readings
+	printf("\r\nLoad Value = %f , %f , %f",
+	       pid[0]->loadCell->read(),
+	       pid[1]->loadCell->read(),
+	       pid[2]->loadCell->read());
       }
 #endif // DEBUG
 
