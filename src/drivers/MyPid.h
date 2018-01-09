@@ -55,7 +55,7 @@ class PIDimp : public PIDBowler
   AnalogIn * loadCell;          // list of load cells
 
   //!FIXME is there a reason why this needs is public?
-  double gravityCompTerm = 0; 
+  double gravityCompTerm;
 
   // Class private attributes
  private:

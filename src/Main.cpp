@@ -20,7 +20,7 @@
 #define  DOFs  3     // this macro defines the number of joints of the robotic arm
 #define  DUMMYMODE   // this macro selects the running mode - see instructions above
 
-#define  DEBUG       // if defined, this macro enables the printing of debug
+//#define  DEBUG       // if defined, this macro enables the printing of debug
                      // statements to the serial port - which can be read with PUTTY
 
 /*
@@ -32,7 +32,7 @@ HIDSimplePacket coms;      // HID packet handlers
 
 // The following array contains the "home" positions (in encoder ticks) for each
 // of the robot's joints 
-float homePosition[3] = {0,0,0};
+float homePosition[3] = {361,42,2755};
 
 void runPid() {
 	// update all positions fast and together
@@ -64,23 +64,22 @@ int main() {
   for (int i = 0; i < 3; i++)
     pid[i] = (PIDimp*) new DummyPID();
 #else
-  // initialize the SPI bus between the Nucleo board and each individual joint
-   SPI * spi1 = new SPI(PC_12, PC_11, PC_10); // spi(mosi, miso, clk)
-   SPI * spi2 = new SPI(PE_6, PE_5, PE_2);    // spi(mosi, miso, clk)
-   SPI * spi3 = new SPI(PF_9, PF_8, PF_7);    // spi(mosi, miso, clk)
-
-  
-  SPI * spiDev = new SPI(MOSI, MISO, CLK);
-
-  // initialize the PID control for each of the joints
-  pid[0] = new PIDimp(new Servo(SERVO_1, 5), new AS5050(spi1, ENC_1),
-		      new AnalogIn(LOAD_1)); // mosi, miso, sclk, cs
-  
-  pid[1] = new PIDimp(new Servo(SERVO_2, 5), new AS5050(spi2, ENC_2),
-		      new AnalogIn(LOAD_2)); // mosi, miso, sclk, cs
-  
-  pid[2] = new PIDimp(new Servo(SERVO_3, 5), new AS5050(spi3, ENC_3),
-		      new AnalogIn(LOAD_3)); // mosi, miso, sclk, cs
+#if defined( REV1)
+   SPI * spiDev = new SPI(MOSI, MISO, CLK);
+   SPI * spi3 = spiDev;
+   SPI * spi4 = spiDev;
+   SPI * spi5 = spiDev;
+#else if defined(REV2)
+   SPI * spi3 = new SPI(PC_12, PC_11, PC_10); // spi(mosi, miso, clk)
+   SPI * spi4 = new SPI(PE_6, PE_5, PE_2); // spi(mosi, miso, clk)
+   SPI * spi5 = new SPI(PF_9, PF_8, PF_7); // spi(mosi, miso, clk)
+#endif
+   pid[0] = new PIDimp( new Servo(SERVO_1, 5),
+                         new AS5050(spi3, ENC_1),new AnalogIn(LOAD_1));  // mosi, miso, sclk, cs
+   pid[1] = new PIDimp( new Servo(SERVO_2, 5),
+                         new AS5050(spi4, ENC_2),new AnalogIn(LOAD_2));  // mosi, miso, sclk, cs
+   pid[2] = new PIDimp( new Servo(SERVO_3, 5),
+                         new AS5050(spi5, ENC_3),new AnalogIn(LOAD_3));  // mosi, miso, sclk, cs
 #endif
 
   RunEveryObject * print = new RunEveryObject(0, 100);
@@ -167,7 +166,8 @@ int main() {
     // The following code prints out debug statements.
 #ifdef DEBUG
     int link = 1;
-    if (print->RunEvery(pid[link]->getMs()) > 0) // !FIXME why do we need this if statement?
+
+    if (1) // !FIXME why do we need this if statement?
       {
 	// print encoder values for each joint
 	printf("\r\nEncoder Value = %f , %f , %f",
@@ -179,8 +179,10 @@ int main() {
 	printf("\r\nLoad Value = %f , %f , %f",
 	       pid[0]->loadCell->read(),
 	       pid[1]->loadCell->read(),
-	       pid[2]->loadCell->read());	
+	       pid[2]->loadCell->read());
       }
-#endif // DEBUG    
+#endif // DEBUG
+
   }
+
 }

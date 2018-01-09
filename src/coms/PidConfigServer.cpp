@@ -17,11 +17,11 @@ void PidConfigServer::event(float * packet)
   for(int i = 0; i < myPumberOfPidChannels; i++)
     {
       // read values from the packet packet
-      float kp = packet[(i*3)+0];
-      float ki = packet[(i*3)+1];
-      float kd = packet[(i*3)+2];
+      float kpn = packet[(i*3)+0];
+      float kin = packet[(i*3)+1];
+      float kdn = packet[(i*3)+2];
       
       // Set the PID constants
-      myPidObjects[i]->setPIDConstants(kp, ki, kd);
+      myPidObjects[i]->setPIDConstants(kpn, kin, kdn);
     } 
 }
