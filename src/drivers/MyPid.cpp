@@ -80,6 +80,7 @@ void PIDimp::onPidConfigureLocal()
   //30 sets to 100ms velocity loop
   setVelocityControllerDivisor(60);// Sets the number of PID cycles to run before running one velocity controller
   printf("\r\nPID initialized"); 
+  gravityCompTerm=0;
 }
 
 
