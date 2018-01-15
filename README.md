@@ -58,8 +58,7 @@ Check just for the user tags:
  
  ```
 ## Clone Firmware
-First create a new private repository - make sure to deselect the **Initialize this repository with a README** option.
-Copy the git url of your new repository to the clipboard, you are going to need it the next step.
+A new private repository is created for every team. Check the URL of your repo with the instructors/TAs. _My\_Private\_Repo\_URL_here_ in the command below refers to this shared URL.
 ```
 git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 cd RBE3001_nucleo_firmware
