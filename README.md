@@ -2,8 +2,8 @@
 
 Welcome to the first RBE3001 lab session! This is going to be great!
 Below you will find instructions to install and set up the firmware for the nucleo-f746zg board.
-
-# Driver and udev rule
+# BEGIN Private machine, not Lab machines
+## Driver and udev rule
 The nucleo needs a udev rule installed in
 
 /etc/udev/rules.d/98-openocd-udev.rules
@@ -16,7 +16,7 @@ sudo adduser $USER dialout
 ```
 Udev for nucleo source
 https://github.com/platformio/platformio-core/blob/develop/scripts/98-openocd-udev.rules
-# BEGIN Private machine, not Lab machines
+
 ## Toolchains 
 ```
 sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
