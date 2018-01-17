@@ -16,8 +16,8 @@ sudo adduser $USER dialout
 ```
 Udev for nucleo source
 https://github.com/platformio/platformio-core/blob/develop/scripts/98-openocd-udev.rules
-
-# Toolchains
+# BEGIN Private machine, not Lab machines
+## Toolchains 
 ```
 sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
 sudo add-apt-repository ppa:webupd8team/java
@@ -32,6 +32,8 @@ make -j8
 sudo make install
 
 ```
+# END Private machine, not Lab machines
+
 Log out and log back in to make the user permissions stick.
 # SSH Keys
 To use the git@ url and to push without having to enter your username and password all the time, you need to set up an SSH key with github. 
