@@ -68,7 +68,7 @@ cd RBE3001_nucleo_firmware
 ## Set up your private repo
 ```
 #Set your fresh clean Private repo here
-git remote set-url origin `MY_Private_Repo_URL_here'
+git remote set-url origin DO_NOT_COPY_THIS_REPLACE_IT_WITH_MY_Private_Repo_URL_here
 git checkout master
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
