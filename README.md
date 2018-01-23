@@ -59,6 +59,7 @@ Check just for the user tags:
  git config --list|grep user
  
  ```
+# BEGIN Only do this ONCE on initial setup
 ## Clone Firmware
 A new private repository is created for every team. Check the URL of your repo with the instructors/TAs. _My\_Private\_Repo\_URL_here_ in the command below refers to this shared URL.
 ```
@@ -88,7 +89,9 @@ If everything worked your terminal should look like:
 ![](/img/terminal.png)
 
 If an error message shows up at the end of the build process, check that the board is connected to the computer and try again.
+# END Only do this ONCE on initial setup
 
+# BEGIN Only do this after initial setup on new machine (partners after the initial push)
 ## Check out after initial build
 After the first setup you can checkout the project the easy way. Go to your private repo and copy the url. 
 
@@ -101,7 +104,7 @@ git submodule update
 mbed deploy
 mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ -f
 ```
-
+# End Only do this after initial setup on new machine (partners after the initial push)
 # Print statements
 
 Now we are going to verify the communication between the computer and the NUCLEO firmware. To do so, we will use putty to listen on the serial port ttyACM0:
