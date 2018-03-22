@@ -15,7 +15,8 @@ sudo  udevadm control --reload-rules
 sudo adduser $USER dialout 
 ```
 Udev for nucleo source
-https://github.com/platformio/platformio-core/blob/develop/scripts/98-openocd-udev.rules
+
+ https://github.com/platformio/platformio-core/blob/develop/scripts/99-platformio-udev.rules
 
 ## Toolchains 
 ```
