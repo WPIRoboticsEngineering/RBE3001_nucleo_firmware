@@ -151,7 +151,7 @@ ln -s ~/bin/Eclipse.desktop ~/Desktop/EclipseARM.desktop
 
 # Eclipse Setup
 
-create a workspace for you RBE3001 devlepmet. First add the GNU ARM toolchain
+Create a workspace for you RBE3001 devlepmet. First, add the GNU ARM toolchain by clicking on the Help tab at the top of the screen and then clicking on the "Install New Software..." button within that tab. From there, add the following information:
 
 Name: GNU ARM Eclipse Plug-ins
 
