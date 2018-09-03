@@ -5,3 +5,4 @@
 /src/*.gch
 /firmware.bin
 /CSGdatabase.json
+/mbed-os/
