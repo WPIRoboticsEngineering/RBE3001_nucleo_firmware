@@ -3,6 +3,9 @@
 Welcome to the first RBE3001 lab session! This is going to be great!
 Below you will find instructions to install and set up the firmware for the nucleo-f746zg board.
 # BEGIN Private machine, not Lab machines
+## Linux Version 
+Currently supported versions: **Ubuntu 16.04**<br />
+>>Any other version of linux will not work.
 ## Driver and udev rule
 The nucleo needs a udev rule installed in
 
