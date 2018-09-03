@@ -8,29 +8,29 @@
  *  @brief This function handles incoming HID packets from MATLAB.
  *
  *  @description This method has two parts: in part 1, we will decode the incoming
- *               packet, extract the setpoints and send those values to the 
+ *               packet, extract the setpoints and send those values to the
  *               PID controller; in part 2, we will generate a response that will be
  *               sent back to MATLAB through HID. This is useful to e.g. send sensor
  *               data to MATLAB for plotting.
- */  
+ */
 void PidServer::event(float * packet){
 
   /*
    * ======= PART 1: Decode setpoints and send commands to the PID controller ==
    */
-  
+
   bool skipLink = false; //!FIXME Do we need this? If not, let's get rid of it
-  
+
   for (int i = 0; i < myPumberOfPidChannels; i++)
-    {      
+    {
       // extract the three setpoint values (one for each joint) from the packet buffer
       float setpoint = packet[(i*3)+0];
       float velocityTarget = 0; // this is currently unused
       float forceTarget = 0;    // this is currently unused
       //printf("\r\n %i : %f", i,setpoint);
-      // get current position from arm 
+      // get current position from arm
       float position = myPidObjects[i]->GetPIDPosition();
-      
+
       // now let's initiate motion to the setpoints
 
       // !FIXME I am not sure what the next two instructions are for.
@@ -45,7 +45,7 @@ void PidServer::event(float * packet){
 					       myPidObjects[i]->state.interpolate.set,
 					       0.01,   // !FIXME need to explain what these constants are
 					       0.01);
-      
+
       if(newUpdate)
 	{
 	  // disable interrupts first
@@ -59,9 +59,9 @@ void PidServer::event(float * packet){
 
 	  // re-enable interrupts
 	__enable_irq();
-	
+
 	}
-      
+
       else // !FIXME The following clause does not seem to be doing anything.
 	   //        Do we need to keep it?
 	{
@@ -84,9 +84,9 @@ void PidServer::event(float * packet){
   uint8_t * buff = (uint8_t *) packet;
 
   // re-initialize the packet to all zeros
-  for(int i = 4; i < 64;i++)
-      buff[i]=0;
-  
+  for (int i = 0; i < 60; i++)
+      buff[i] = 0;
+
   /**
    * The following loop reads sensor data (encoders ticks, joint velocities and
    * force readings) and writes it in the response packet.
@@ -99,6 +99,6 @@ void PidServer::event(float * packet){
 
       packet[(i*3)+0] = position;
       packet[(i*3)+1] = velocity;
-      packet[(i*3)+2] = torque; 
+      packet[(i*3)+2] = torque;
     }
 }
