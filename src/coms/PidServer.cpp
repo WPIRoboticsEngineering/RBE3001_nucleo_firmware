@@ -39,7 +39,7 @@ void PidServer::event(float * packet){
       float timeOfMotion = 0;
       if(velocityTarget>0)
 	timeOfMotion=(std::abs(setpoint-position)/velocityTarget)*1000;// convert from Tics per second to miliseconds
-      //When polling for the current positoon, we are passing down setpoints over and over. If the setpoint is already set we want to skip
+      // When polling for the current positon, we are passing down setpoints over and over. If the setpoint is already set we want to skip
       // Bound function is checking the incoming value agains the previouslt set value
       bool newUpdate = !myPidObjects[i]->bound(setpoint,
 					       myPidObjects[i]->state.interpolate.set,
