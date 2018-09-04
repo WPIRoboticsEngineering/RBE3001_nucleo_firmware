@@ -39,13 +39,13 @@ void PidServer::event(float * packet){
       float timeOfMotion = 0;
       if(velocityTarget>0)
 	timeOfMotion=(std::abs(setpoint-position)/velocityTarget)*1000;// convert from Tics per second to miliseconds
-
+      //When polling for the current positoon, we are passing down setpoints over and over. If the setpoint is already set we want to skip
       // Bound function is checking the incoming value agains the previouslt set value
       bool newUpdate = !myPidObjects[i]->bound(setpoint,
 					       myPidObjects[i]->state.interpolate.set,
 					       0.01,   // is the incoming setpoint plus 0.01 from the last setpoint
 					       0.01);// is the incoming setpoint minus 0.01 from the last setpoint
-      // If the incoming value is outside of the previous vaoue, then we actually set the PID controller
+      // If the incoming value is outside of the previous value, then we actually set the PID controller
       if(newUpdate)
 	{
 	  // disable interrupts first
@@ -62,8 +62,8 @@ void PidServer::event(float * packet){
 
 	}
 
-      else // !FIXME The following clause does not seem to be doing anything.
-	   //        Do we need to keep it?
+      else // This is what happens if the setpoint is the same as the cutrrent setpoint
+	   //        this is only called when the polling packet is just reading
 	{
 	  //  printf("\r\nPacket write ignored, index %i to %f is already %f",i,setpoint,myPidObjects[i]->state.interpolate.set);
 	  skipLink=true;
