@@ -40,12 +40,12 @@ void PidServer::event(float * packet){
       if(velocityTarget>0)
 	timeOfMotion=(std::abs(setpoint-position)/velocityTarget)*1000;// convert from Tics per second to miliseconds
 
-      // !FIXME what is the `bound' method doing?
+      // Bound function is checking the incoming value agains the previouslt set value
       bool newUpdate = !myPidObjects[i]->bound(setpoint,
 					       myPidObjects[i]->state.interpolate.set,
-					       0.01,   // !FIXME need to explain what these constants are
-					       0.01);
-
+					       0.01,   // is the incoming setpoint plus 0.01 from the last setpoint
+					       0.01);// is the incoming setpoint minus 0.01 from the last setpoint
+      // If the incoming value is outside of the previous vaoue, then we actually set the PID controller
       if(newUpdate)
 	{
 	  // disable interrupts first
