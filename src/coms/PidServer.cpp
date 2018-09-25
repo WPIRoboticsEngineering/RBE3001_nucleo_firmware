@@ -54,9 +54,8 @@ void PidServer::event(float * packet){
 	                                        //  every time?
 	                                        // Can't we just leave it enabled?
 
-	  // go to setpoint in timeBetweenPrints ms, linear interpolation
-	  myPidObjects[i]->SetPIDTimed(setpoint, timeOfMotion); // !FIXME what is `timeBetweenPrints'?
-
+	  // go to setpoint in timeOfMotion ms, linear interpolation
+	  myPidObjects[i]->SetPIDTimed(setpoint, timeOfMotion);
 	  // re-enable interrupts
 	__enable_irq();
 
