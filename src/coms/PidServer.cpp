@@ -37,7 +37,7 @@ void PidServer::event(float * packet){
       //        The if statement below always returns false and therefore we never
       //        enter the clause. Is this code needed? If not, let's get rid of it.
       float timeOfMotion = 0;
-      if(velocityTarget>0)
+      if(std::abs(velocityTarget)>0)
 	timeOfMotion=(std::abs(setpoint-position)/velocityTarget)*1000;// convert from Tics per second to miliseconds
       // When polling for the current positon, we are passing down setpoints over and over. If the setpoint is already set we want to skip
       // Bound function is checking the incoming value agains the previouslt set value
