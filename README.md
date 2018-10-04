@@ -12,7 +12,7 @@ The nucleo needs a udev rule installed in
 /etc/udev/rules.d/81-neuronrobotics.rules
 
 ```
-wget https://github.com/NeuronRobotics/utils-bowler/blob/0649c91b772832b3f5de149b9a9045128b907547/publish/installer-scripts/linux/build/81-neuronrobotics.rules
+wget https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware/releases/download/0.0.6/81-neuronrobotics.rules
 sudo cp 81-neuronrobotics.rules /etc/udev/rules.d/
 sudo  udevadm control --reload-rules
 sudo adduser $USER dialout 
