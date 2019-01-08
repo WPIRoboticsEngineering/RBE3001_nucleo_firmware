@@ -3,9 +3,6 @@
 Welcome to the first RBE3001 lab session! This is going to be great!
 Below you will find instructions to install and set up the firmware for the nucleo-f746zg board.
 # BEGIN Private machine, not Lab machines
-## Linux Version 
-Currently supported versions: **Ubuntu 16.04**<br />
->>Any other version of linux will not work.
 ## Driver and udev rule
 The nucleo needs a udev rule installed in
 
@@ -61,12 +58,11 @@ Check just for the user tags:
  git config --list|grep user
  
  ```
-# BEGIN Only do this ONCE on initial setup
-## Clone Firmware
-A new private repository is created for every team. Check the URL of your repo with the instructors/TAs. _My\_Private\_Repo\_URL_here_ in the command below refers to this shared URL.
+# Clone Firmware
+A new private repository is created for every team. Check the URL of your repo by cloning it 
 ```
-git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
-cd RBE3001_nucleo_firmware
+git clone MY_Private_Repo_URL_here
+cd M-Repo_Folder
 ```
 ## Set up your private repo
 ```
@@ -75,9 +71,6 @@ git remote set-url origin DO_NOT_COPY_THIS_REPLACE_IT_WITH_MY_Private_Repo_URL_h
 git checkout master
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
-#this pushes the master branch to your private repo
-git push -u origin master
-git remote -v
 ```
 ## Initialize, Compile and Deploy the Firmware
 ```
@@ -91,22 +84,13 @@ If everything worked your terminal should look like:
 ![](/img/terminal.png)
 
 If an error message shows up at the end of the build process, check that the board is connected to the computer and try again.
-# END Only do this ONCE on initial setup
 
-# BEGIN Only do this after initial setup on new machine (partners after the initial push)
-## Check out after initial build
-After the first setup you can checkout the project the easy way. Go to your private repo and copy the url. 
+#Setting up Doxygen
+```
+doxygen doxy.doxygen
+```
+If successful a series of commands should scroll across the screen and once complete a docs folder should be generated comtaining an html folder.
 
-```
-git clone MY_Private_Repo_URL_here
-cd M-Repo_Folder
-git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
-git submodule init
-git submodule update
-mbed deploy
-mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ -f
-```
-# End Only do this after initial setup on new machine (partners after the initial push)
 # Print statements
 
 Now we are going to verify the communication between the computer and the NUCLEO firmware. To do so, we will use putty to listen on the serial port ttyACM0:
