@@ -170,10 +170,6 @@ int main() {
 			// print load cell readings
 			printf(" Setpoint = %f , %f , %f", pid[0]->state.SetPoint,
 					pid[1]->state.SetPoint, pid[2]->state.SetPoint);
-			printf(" Gravity = %f , %f , %f", pid[0]->gravityCompTerm,
-								pid[1]->gravityCompTerm, pid[2]->gravityCompTerm);
-			printf(" Load Value = %f , %f , %f", pid[0]->loadCell->read(),
-					pid[1]->loadCell->read(), pid[2]->loadCell->read());
 
 #endif // DEBUG
 
