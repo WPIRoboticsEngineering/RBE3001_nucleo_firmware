@@ -85,7 +85,7 @@ If everything worked your terminal should look like:
 
 If an error message shows up at the end of the build process, check that the board is connected to the computer and try again.
 
-#Setting up Doxygen
+# Setting up Doxygen
 ```
 doxygen doxy.doxygen
 ```
