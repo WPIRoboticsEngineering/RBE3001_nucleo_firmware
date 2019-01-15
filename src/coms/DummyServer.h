@@ -4,14 +4,14 @@
 #include <PacketEvent.h>
 #include "../drivers/MyPid.h"
 #include <cmath>        // std::abs
-
+#define DUMMYSERVERID 99
 
 class DummyServer: public PacketEventAbstract{
 
 public:
   // Packet ID needs to be set
    DummyServer ()
-   : PacketEventAbstract( 42){
+   : PacketEventAbstract(DUMMYSERVERID){
   }
   //User function to be called when a packet comes in
   // Buffer contains data from the packet coming in at the start of the function

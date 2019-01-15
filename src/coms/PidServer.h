@@ -30,7 +30,7 @@
 #include "../drivers/MyPid.h"
 #include <cmath>              // needed for std::abs
 
-#define PID_SERVER_ID 37      // identifier for this server
+#define PID_SERVER_ID 01      // identifier for this server
 
 /**
  *  @brief Class that receives setpoints through HID and sends them to

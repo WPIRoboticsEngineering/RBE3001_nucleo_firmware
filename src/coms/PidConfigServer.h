@@ -21,7 +21,7 @@
 #include "../drivers/MyPid.h"
 #include <cmath>               // needed for std::abs
 
-#define PIDCONFIG_SERVER_ID 65 // identifier for this server
+#define PIDCONFIG_SERVER_ID 02 // identifier for this server
 
 
 /**
