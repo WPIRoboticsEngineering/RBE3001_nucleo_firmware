@@ -75,6 +75,7 @@ git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nu
 ```
 git submodule init
 git submodule update
+pip install --upgrade setuptools
 mbed deploy
 mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ -f
 ```
