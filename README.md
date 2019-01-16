@@ -69,6 +69,8 @@ $ git remote set-url origin https://github.com/RBE300X-Lab/RBE3001_nucleo_firmwa
 $ git checkout master
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
+git pull RBE-UPSTREAM master
+git push origin master
 ```
 
 ## Initialize, Compile and Deploy the Firmware
