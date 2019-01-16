@@ -2,7 +2,10 @@
 
 Welcome to the first RBE3001 lab session! This is going to be great!
 Below you will find instructions to install and set up the firmware for the nucleo-f746zg board.
-# BEGIN Private machine, not Lab machines
+
+If you are working on one of the workstations in AK120, then you can skip the first section of this README, and go directly to section 2.
+
+# 1. Set up udev rule (for private machines only)
 ## Driver and udev rule
 The nucleo needs a udev rule installed in
 
@@ -31,47 +34,43 @@ make -j8
 sudo make install
 
 ```
-# END Private machine, not Lab machines
 
 Log out and log back in to make the user permissions stick.
-# SSH Keys
-To use the git@ url and to push without having to enter your username and password all the time, you need to set up an SSH key with github. 
-follow these instructions https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 
-then these  https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
-# Firmware Source Code
 
-Download and compile the source code with mbed-cli
-## Configure git
+# 2. Configure git
+If you wish to be able to push changes to this repository without having to enter your username and password all the time,
+you need to set up an SSH key with github. 
+Follow these instructions first: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+And then:  https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
+## Configure the username
 ```
-git config --global user.name "John Doe"
-git config --global user.email johndoe@wpi.edu
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@wpi.edu
 ```
-## Check Git Configuration
-List all configurations:
+To check which other users have been configured, you can run:
 ```
- git config --list
- 
+$ git config --list
  ```
-Check just for the user tags:
+
+# 3. Compilation and deployment of the firmware
+## Clone the firmware
+A private repository containing the robot firmware was created for every team prior to the start of this lab. You can clone the repository by running
 ```
- git config --list|grep user
- 
- ```
-# Clone Firmware
-A new private repository is created for every team. Check the URL of your repo by cloning it 
+$ git clone https://github.com/RBE300X-Lab/RBE3001_nucleo_firmwareXX
 ```
-git clone MY_Private_Repo_URL_here
-cd M-Repo_Folder
-```
+where `XX' should be replaced by your team number (for instance `01').
+
 ## Set up your private repo
 ```
 #Set your fresh clean Private repo here
-git remote set-url origin DO_NOT_COPY_THIS_REPLACE_IT_WITH_MY_Private_Repo_URL_here
-git checkout master
+$ git remote set-url origin https://github.com/RBE300X-Lab/RBE3001_nucleo_firmwareXX
+$ git checkout master
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 ```
+
 ## Initialize, Compile and Deploy the Firmware
 ```
 git submodule init
