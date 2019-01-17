@@ -4,8 +4,7 @@ compileCommand="mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --s
 
 outputFolder=""
 if [ -z "$1" ]; then
-  pip freeze | grep mbed-greentea
-  if [ "$?" = "0" ]; then
+  if pip freeze | grep mbed-greentea ; then
     # If no specific directory is defined and greentea is here, do the thing
     $compileCommand -f
     exit
