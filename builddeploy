@@ -1,0 +1,37 @@
+#!/bin/bash
+
+compileCommand="mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID"
+
+outputFolder=""
+if [ -z "$1" ]; then
+  pip freeze | grep mbed-greentea
+  if [ "$?" = "0" ]; then
+    # If no specific directory is defined and greentea is here, do the thing
+    $compileCommand -f
+    exit
+  else
+    # greentea is not here, so go to default directory
+    outputFolder="/media/$USER/NUCLEO_*/"
+  fi
+else
+  # Directory is specified, bypass greentea
+  outputFolder="$1"
+fi
+
+tempFile='builddeploy.tmp'
+
+# Compile the code
+$compileCommand | tee "$tempFile"
+
+# Get the binary name from the build output
+binary="$(tail -n5 builddeploy.tmp | grep 'Image:' | cut -d " " -f 2)"
+
+echo "Deploying $binary to $outputFolder"
+
+# Clean up
+rm -f "$tempFile"
+
+# Deploys the binary to the output folder
+cp "$binary" $outputFolder
+
+echo 'Done'
