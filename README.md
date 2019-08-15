@@ -57,10 +57,7 @@ When you're prompted to "Enter a file in which to save the key," press Enter. Th
 
  `> Enter a file in which to save the key (/home/you/.ssh/id_rsa): [Press enter]`
  
-At the prompt, type a secure passphrase. For more information, see "Working with SSH key passphrases".
-
- `> Enter passphrase (empty for no passphrase): [Type a passphrase]
-  > Enter same passphrase again: [Type passphrase again]`
+At the prompt, DO NOT type a secure passphrase, hit enter to make it passwordless.
 
 And then:  https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
 
