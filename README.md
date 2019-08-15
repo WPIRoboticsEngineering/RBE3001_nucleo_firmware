@@ -75,17 +75,15 @@ $ git config --list
 ## Clone the TEMPLATE firmware ONCE AND ONLY ONCE
 The code comes from this source:
 ```
-$ git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
+git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 ```
 ## Set up your private repo ONCE AND ONLY ONCE
 
 ```
 cd RBE3001_nucleo_firmware
 #Set your fresh clean Private repo here where `XX' should be replaced by your team number (for instance `01').
-git remote set-url origin git@github.com:RBE200x-lab/RBE2002CodeXX.git
+git remote set-url origin git@github.com:RBE300X-Lab/RBE3001_nucleo_firmwareXX.git
 # Add the example RBE firmware as an upstream pull
-git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
-git pull RBE-UPSTREAM master
 git push origin master
 cd ..
 rm -rf RBE3001_nucleo_firmware
@@ -95,8 +93,10 @@ A private repository containing the robot firmware was created for every team pr
 
 where `XX' should be replaced by your team number (for instance `01').
 ```
-git clone git@github.com:RBE200x-lab/RBE2002CodeXX.git
-cd RBE2002CodeXX
+git clone git@github.com:RBE300X-Lab/RBE3001_nucleo_firmwareXX.git
+cd RBE3001_nucleo_firmwareXX
+git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
+git pull RBE-UPSTREAM master
 ```
 
 ## Initialize, Compile and Deploy the Firmware
