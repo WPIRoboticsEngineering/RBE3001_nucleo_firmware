@@ -72,22 +72,31 @@ $ git config --list
  ```
 
 # 3. Compilation and deployment of the firmware
-## Clone the firmware
-A private repository containing the robot firmware was created for every team prior to the start of this lab. You can clone the repository by running
+## Clone the TEMPLATE firmware ONCE AND ONLY ONCE
+The code comes from this source:
 ```
-$ git clone https://github.com/RBE300X-Lab/RBE3001_nucleo_firmwareXX
+$ git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 ```
-where `XX' should be replaced by your team number (for instance `01').
+## Set up your private repo ONCE AND ONLY ONCE
 
-## Set up your private repo
 ```
-#Set your fresh clean Private repo here
-$ git remote set-url origin https://github.com/RBE300X-Lab/RBE3001_nucleo_firmwareXX
-$ git checkout master
+cd RBE3001_nucleo_firmware
+#Set your fresh clean Private repo here where `XX' should be replaced by your team number (for instance `01').
+git remote set-url origin git@github.com:RBE200x-lab/RBE2002CodeXX.git
 # Add the example RBE firmware as an upstream pull
 git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 git pull RBE-UPSTREAM master
 git push origin master
+cd ..
+rm -rf RBE3001_nucleo_firmware
+```
+## Clone your copy of the firmware (Each team member should do this, AFTER the 2 steps above) 
+A private repository containing the robot firmware was created for every team prior to the start of this lab. You can clone the repository by running
+
+where `XX' should be replaced by your team number (for instance `01').
+```
+git clone git@github.com:RBE200x-lab/RBE2002CodeXX.git
+cd RBE2002CodeXX
 ```
 
 ## Initialize, Compile and Deploy the Firmware
