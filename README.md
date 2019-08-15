@@ -61,26 +61,6 @@ At the prompt, type a secure passphrase. For more information, see "Working with
 
  `> Enter passphrase (empty for no passphrase): [Type a passphrase]
   > Enter same passphrase again: [Type passphrase again]`
-## Adding your SSH key to the ssh-agent
-Before adding a new SSH key to the ssh-agent to manage your keys, you should have checked for existing SSH keys and generated a new SSH key. 
-
-Start the ssh-agent in the background.
-
-```
-$ eval "$(ssh-agent -s)"
-> Agent pid 59566
-```
-
-Set the permissions of ` ~/.ssh/id_rsa`
-
-`chmod 700  ~/.ssh/id_rsa`
-
-
-Add your SSH private key to the ssh-agent. If you created your key with a different name, or if you are adding an existing key that has a different name, replace id_rsa in the command with the name of your private key file.
-
-`ssh-add ~/.ssh/id_rsa`
-
-
 
 And then:  https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
 
