@@ -172,7 +172,12 @@ chmod +x ~/bin/EclipseARM.desktop
 ln -s ~/bin/Eclipse.desktop ~/Desktop/EclipseARM.desktop
 ```
 
-## 7.3 configure plugin
+# 8. Configure your Eclipse
+
+Start by opening eclipse
+
+
+## 8.1 configure plugin
 
 Create a workspace for you RBE3001 devlepmet. First, add the GNU ARM toolchain by clicking on the Help tab at the top of the screen and then clicking on the "Install New Software..." button within that tab. From there, add the following information:
 
@@ -185,11 +190,8 @@ Install plugins from that site.
 
 Restart Eclipse after installing plugins.
 
-# 8. Configure your Eclipse
 
-Start by opening eclipse
-
-## 8.1 Next Set up the toolchain path for MCU's
+## 8.2 Next Set up the toolchain path for MCU's
 
 Window->Preferences->MCU->Global ARM Toolchain Paths->Toolchain folder:
 
@@ -197,7 +199,7 @@ Window->Preferences->MCU->Global ARM Toolchain Paths->Toolchain folder:
 
 Apply and Close
 
-## 8.2 Import project
+## 8.3 Import project
 
 Set up a new project using "Importing to Eclipse and Building" section from: 
 
@@ -210,7 +212,7 @@ Select ARM Cross GCC
 
 Finish
 
-## 8.3 Configure Build command
+## 8.4 Configure Build command
 
 Then set the build command by right clicking on RBE3001_Nucleo_firmware
 
@@ -229,7 +231,7 @@ Properties->C/C++ Build->Behavior Build(Incremental Build)
 
 ![](/img/Screenshot_2017-08-21_12-43-41.png)
 
-## 8.4 Fix Compilation path
+## 8.5 Fix Compilation path
 
 right click on RBE3001_Nucleo_firmware 
 
