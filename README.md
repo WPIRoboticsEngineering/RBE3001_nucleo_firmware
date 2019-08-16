@@ -42,7 +42,7 @@ Log out and log back in to make the user permissions stick.
 ## Generating a new SSH key
 If you wish to be able to push changes to this repository without having to enter your username and password all the time,
 you need to set up an SSH key with github. 
-
+### 2.1 Create SSH key
 Open Terminal
 
 Paste the text below, substituting in your GitHub email address.
@@ -59,9 +59,11 @@ When you're prompted to "Enter a file in which to save the key," press Enter. Th
  
 At the prompt, DO NOT type a secure passphrase, hit enter to make it passwordless.
 
+### 2.2 Add ssh key to GitHub
+
 And then:  https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
 
-## Configure the username
+### 2.3 Configure the username
 ```
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@wpi.edu
