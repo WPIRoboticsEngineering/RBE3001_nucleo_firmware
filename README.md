@@ -249,7 +249,7 @@ Wait for the C/C++ indexer to complete and then you can begin working.
 
 
 # 9. Core firmware maintainance and bug reporting
-## Upstream updates
+## 9.1 Upstream updates
 If the course staff needs to update or repair any system code or the dependant libraries, then you will need to run:
 ```
 git pull RBE-UPSTREAM master
@@ -269,7 +269,7 @@ git pull origin master
 cd ..
 ```
 
-## Reporting Issues with the template code
+## 9.2 Reporting Issues with the template code
 
 To report an issue with the template code it must consist of these exact elements:
 
