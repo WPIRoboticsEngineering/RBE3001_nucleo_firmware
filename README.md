@@ -74,12 +74,12 @@ $ git config --list
  ```
 
 # 3. Compilation and deployment of the firmware
-## Clone the TEMPLATE firmware ONCE AND ONLY ONCE
+## 3.1 Clone the TEMPLATE firmware ONCE AND ONLY ONCE
 The code comes from this source:
 ```
 git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
 ```
-## Set up your private repo ONCE AND ONLY ONCE
+## 3.2 Set up your private repo ONCE AND ONLY ONCE
 
 ```
 cd RBE3001_nucleo_firmware
@@ -90,7 +90,9 @@ git push origin master
 cd ..
 rm -rf RBE3001_nucleo_firmware
 ```
-## Clone your copy of the firmware (Each team member should do this, AFTER the 2 steps above) 
+# 4. Clone your teams firmware
+
+## 4.1 Clone your copy of the firmware (Each team member should do this, AFTER the 2 steps above) 
 A private repository containing the robot firmware was created for every team prior to the start of this lab. You can clone the repository by running
 
 where `XX' should be replaced by your team number (for instance `01').
@@ -101,7 +103,7 @@ git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nu
 git pull RBE-UPSTREAM master
 ```
 
-## Initialize, Compile and Deploy the Firmware
+## 4.2 Initialize, Compile and Deploy the Firmware
 ```
 git submodule init
 git submodule update
@@ -115,14 +117,14 @@ If everything worked your terminal should look like:
 
 If an error message shows up at the end of the build process, check that the board is connected to the computer and try again.
 
-# Setting up Doxygen
+# 5. Setting up Doxygen
 
 ```
 doxygen doxy.doxygen
 ```
 If successful a series of commands should scroll across the screen and once complete a docs folder should be generated comtaining an html folder.
 
-# Print statements
+# 6. Print statements
 
 Now we are going to verify the communication between the computer and the NUCLEO firmware. To do so, we will use putty to listen on the serial port ttyACM0:
 ```
@@ -133,9 +135,12 @@ If successful, you should now see the following:
 ![](/img/serial.png)
 
 
-# Install Eclipse (CDT)
+# 7 Install Eclipse (CDT) HOME MACINES ONLY
+
+## 7.1 Download
 [Direct Download Link for Eclipse](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-linux64.tar.gz)
 
+## 7.2 Install
 Extract and run the installer. Select C/C++ version of eclipse and install it in the default location. 
 
 `eclipse-inst`
@@ -167,9 +172,10 @@ chmod +x ~/bin/EclipseARM.desktop
 ln -s ~/bin/Eclipse.desktop ~/Desktop/EclipseARM.desktop
 ```
 
-# Eclipse Setup
+## 7.3 configure plugin
 
 Create a workspace for you RBE3001 devlepmet. First, add the GNU ARM toolchain by clicking on the Help tab at the top of the screen and then clicking on the "Install New Software..." button within that tab. From there, add the following information:
+
 
 Name: GNU ARM Eclipse Plug-ins
 
@@ -179,13 +185,17 @@ Install plugins from that site.
 
 Restart Eclipse after installing plugins.
 
-Next Set up the toolchain path for MCU's
+# 8. Configure your Eclipse
+
+## 8.1 Next Set up the toolchain path for MCU's
 
 Window->Preferences->MCU->Global ARM Toolchain Paths->Toolchain folder:
 
 `/usr/arm-none-eabi/bin/`
 
 Apply and Close
+
+## 8.2 Import project
 
 Set up a new project using "Importing to Eclipse and Building" section from: 
 
@@ -197,6 +207,8 @@ Browse in Existing Code Location for your RBE3001_Nucleo_firmware (This should s
 Select ARM Cross GCC
 
 Finish
+
+## 8.3 Configure Build command
 
 Then set the build command by right clicking on RBE3001_Nucleo_firmware
 
@@ -214,7 +226,9 @@ Set the build command to push the firmware with '-f'
 Properties->C/C++ Build->Behavior Build(Incremental Build)
 
 ![](/img/Screenshot_2017-08-21_12-43-41.png)
-# Fix the errors for standard types (Red underlines in HIDDevice.h and all others with stdint)
+
+## 8.4 Fix Compilation path
+
 right click on RBE3001_Nucleo_firmware 
 
 Properties->C/C++ Build ->Settings->Toolchains->Toolchain path
@@ -234,7 +248,7 @@ Wait for the C/C++ indexer to complete and then you can begin working.
 **Congratulations! You have completed the setup of the NUCLEO firmware!**
 
 
-# Core firmware maintainance and bug reporting
+# 9. Core firmware maintainance and bug reporting
 ## Upstream updates
 If the course staff needs to update or repair any system code or the dependant libraries, then you will need to run:
 ```
