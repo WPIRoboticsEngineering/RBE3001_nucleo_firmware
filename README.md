@@ -188,6 +188,10 @@ Location: `http://gnu-mcu-eclipse.netlify.com/v4-neon-updates`
 
 Install plugins from that site. 
 
+### NOTE
+ 
+This step will take some time, be sure to wait for it to finish
+
 Restart Eclipse after installing plugins.
 
 
