@@ -48,7 +48,7 @@ void runPid() {
  */
 int main() {
 
-#ifdef DEBUG
+#ifdef DEBUG_
 	printf("\r\n\r\n RBE3001 Arm Firmware \r\n\r\n");
 	printf("\r\n\r\n Initializing... \r\n\r\n");
 #endif
