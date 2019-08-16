@@ -135,7 +135,7 @@ If successful, you should now see the following:
 ![](/img/serial.png)
 
 
-# 7 Install Eclipse (CDT) HOME MACINES ONLY
+# 7 Install Eclipse CDT (for private machines only)
 
 ## 7.1 Download
 [Direct Download Link for Eclipse](https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-linux64.tar.gz)
@@ -186,6 +186,8 @@ Install plugins from that site.
 Restart Eclipse after installing plugins.
 
 # 8. Configure your Eclipse
+
+Start by opening eclipse
 
 ## 8.1 Next Set up the toolchain path for MCU's
 
