@@ -231,7 +231,7 @@ Builder Settings->Build Command:
 
 Set the build command to push the firmware with '-f'
 
-Properties->C/C++ Build->Behavior Build(Incremental Build)
+Properties->C/C++ Build->Behavior-> Build(Incremental Build)
 
 ![](/img/Screenshot_2017-08-21_12-43-41.png)
 
