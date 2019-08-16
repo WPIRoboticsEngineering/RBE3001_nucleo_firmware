@@ -253,6 +253,10 @@ Index-> Rebuild
 
 Wait for the C/C++ indexer to complete and then you can begin working.
 
+## 8.6 Click the green run button
+
+The green button with hte white play symbol to compile and program the robot.
+
 **Congratulations! You have completed the setup of the NUCLEO firmware!**
 
 
