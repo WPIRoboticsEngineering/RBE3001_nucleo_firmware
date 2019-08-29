@@ -233,6 +233,8 @@ Set the build command to push the firmware with '-f'
 
 Properties->C/C++ Build->Behavior-> Build(Incremental Build)
 
+Additionally, make sure `Buildon resource save (autobuild)` is unchecked
+
 ![](/img/Screenshot_2017-08-21_12-43-41.png)
 
 ## 8.5 Fix Compilation path
