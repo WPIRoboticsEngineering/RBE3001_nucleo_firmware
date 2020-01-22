@@ -73,44 +73,75 @@ To check which other users have been configured, you can run:
 $ git config --list
  ```
 
-# 3. Compilation and deployment of the firmware
-## 3.1 Clone the TEMPLATE firmware ONCE AND ONLY ONCE
-The code comes from this source:
-```
-git clone https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
-```
-## 3.2 Set up your private repo ONCE AND ONLY ONCE
-
-```
-cd RBE3001_nucleo_firmware
-#Set your fresh clean Private repo here where `XX' should be replaced by your team number (for instance `01').
-git remote set-url origin git@github.com:RBE300X-Lab/RBE3001_nucleo_firmwareXX.git
-# Add the example RBE firmware as an upstream pull
-git push origin master
-cd ..
-rm -rf RBE3001_nucleo_firmware
-```
-# 4. Clone your teams firmware
-
-## 4.1 Clone your copy of the firmware (Each team member should do this, AFTER the 2 steps above) 
-After you have set up your repository as step 2 suggested, you can clone the repository by running
-
-where `XX' should be replaced by your team number (for instance `01').
+# 3. Set up your Git Repository
+## 3.1 Clone your private lab repository
+Clone your private lab repository. **Note: The command below won't work! Use your own url, found on Github!**
 ```
 git clone git@github.com:RBE300X-Lab/RBE3001_nucleo_firmwareXX.git
-cd RBE3001_nucleo_firmwareXX
-git remote add RBE-UPSTREAM https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
-git pull RBE-UPSTREAM master
+```
+If your repository is empty, you may get a warning.
+
+## 3.2 Set up your private lab repository **[DO ONLY ONCE PER TEAM]**
+Note: Perform this **only if** you do not already have the nucleo firmware in your repository
+1. `cd` into your repository you just created
+```
+cd [name of the repository you just cloned]
+```
+2. Set up a secondary remote server pointing to your repository
+```
+git remote add default-code https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
+```
+You can confirm that the remote has been added by running the following command: 
+```
+git remote
+```
+3. Pull the code from your remote server. You should then see the code in your local repository
+``` bash
+git pull default-code master
+```
+4. Push your code to your main remote repository `origin`
+```bash
+git push origin
 ```
 
-## 4.2 Initialize, Compile and Deploy the Firmware
+## 3.3 Pulling changes from your secondary remote repository **[Only if required]**
+If you need to pull new changes from the default repostory, follow these instructions:
+1. Make sure you have set up the correct secondary remote repository. Run the following code to check:
+``` bash
+git remote -v
 ```
+You should see `origin` (your main server repo) and another pointing to the following url:
+```bash
+https://github.com/WPIRoboticsEngineering/RBE3001_nucleo_firmware.git
+```
+**If you do not see a second remote, or your second remote points to another url, follow the instructions under [Section 3.2 Part 2](##3.2-Set-up-your-private-lab-repository-**[DO-ONLY-ONCE-PER-TEAM]**)**
+
+2. Run the following command to pull the new code from the secondary remote repository:
+``` bash
+git pull default-code master
+```
+Note: If your secondary remote is not named `default-code`, change it to the actual name
+
+## 3.4 Ensure you have all of your submodules added and pulled
+**Note: This needs to be done every time you clone the repository**
+``` bash
 git submodule init
 git submodule update
+```
+
+# 4. Set up and test the firmware + toolchain
+
+## 4.1 Install the required components using pip
+``` bash
 pip install --user --upgrade setuptools
+```
+
+## 4.2 Compile and Deploy the firmware
+``` bash
 mbed deploy
 mbed-cli compile -j0 -t GCC_ARM -m nucleo_f746zg --source .  --source ./mbed-os/features/unsupported/USBDevice/USBDevice/  --source ./mbed-os/features/unsupported/USBDevice/USBHID/ -f
 ```
+
 If everything worked your terminal should look like: 
 
 ![](/img/terminal.png)
