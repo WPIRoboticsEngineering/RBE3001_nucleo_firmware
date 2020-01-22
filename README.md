@@ -93,7 +93,7 @@ rm -rf RBE3001_nucleo_firmware
 # 4. Clone your teams firmware
 
 ## 4.1 Clone your copy of the firmware (Each team member should do this, AFTER the 2 steps above) 
-A private repository containing the robot firmware was created for every team prior to the start of this lab. You can clone the repository by running
+After you have set up your repository as step 2 suggested, you can clone the repository by running
 
 where `XX' should be replaced by your team number (for instance `01').
 ```
